@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>从热平衡到温度 · 第三幕：从等价类到 θ</title>
+<meta name="description" content="大学基础物理交互教材第三幕：热平衡关系把系统状态分成互不重叠的等价类；我们给每个类别赋予一个数值标签，θ（经验温度）由此诞生。">
+<meta name="color-scheme" content="light">
+
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/scene3.css">
+
+<!-- 只在启用 JavaScript 时隐藏待出现元素；未启用时全部内容一次显示 -->
+<script>document.documentElement.className = 'js';</script>
+</head>
+<body>
+<a class="skip-link" href="#scene3">跳到第三幕正文</a>
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <p class="masthead__eyebrow">从热平衡到温度</p>
+    <p class="masthead__meta">第三幕 / 共七幕</p>
+  </div>
+</header>
+
+<main class="stage">
+  <section class="scene scene--3" id="scene3" data-scene="3" aria-labelledby="scene3-title">
+    <h1 class="visually-hidden" id="scene3-title">第三幕：从等价类到 θ</h1>
+
+    <p class="scene__lead scene__lead--ask step" data-step="lead">这种等价关系，把所有系统分成了什么？</p>
+
+    <div class="scene__canvas">
+
+      <!-- ======================== StateField ======================== -->
+      <div class="field step" data-step="field" data-field
+           role="group" aria-label="八个系统状态；它们会被热平衡关系聚成三个等价类">
+
+        <svg class="field__links" data-links aria-hidden="true" focusable="false">
+          <line data-link="AB" x1="0" y1="0" x2="0" y2="0"></line>
+          <line data-link="AD" x1="0" y1="0" x2="0" y2="0"></line>
+        </svg>
+
+        <div class="chip chip--group step" data-step="chipA" data-chip="0">
+          <span class="chip__name m">[<i>A</i>]</span>
+          <span class="chip__tag step" data-step="tagA" data-tag="0"></span>
+        </div>
+
+        <div class="chip chip--group step" data-step="chipC" data-chip="1">
+          <span class="chip__name m">[<i>C</i>]</span>
+          <span class="chip__tag step" data-step="tagC" data-tag="1"></span>
+        </div>
+
+        <div class="chip chip--group step" data-step="chipG" data-chip="2">
+          <span class="chip__name m">[<i>G</i>]</span>
+          <span class="chip__tag step" data-step="tagG" data-tag="2"></span>
+        </div>
+
+        <div class="state" data-state="A"><span class="m"><i>A</i></span></div>
+        <div class="state" data-state="B"><span class="m"><i>B</i></span></div>
+        <div class="state" data-state="C"><span class="m"><i>C</i></span></div>
+        <div class="state" data-state="D"><span class="m"><i>D</i></span></div>
+        <div class="state" data-state="E"><span class="m"><i>E</i></span></div>
+        <div class="state" data-state="F"><span class="m"><i>F</i></span></div>
+        <div class="state" data-state="G"><span class="m"><i>G</i></span></div>
+        <div class="state" data-state="H"><span class="m"><i>H</i></span></div>
+
+      </div>
+
+      <!-- =========================== RelationLog ========================= -->
+      <div class="log">
+        <p class="log__row step" data-step="logAB">
+          <span class="m"><i>A</i> <span class="op">∼</span> <i>B</i></span>
+          <span class="log__note"><span class="m"><i>A</i></span> 与 <span class="m"><i>B</i></span> 处于热平衡</span>
+        </p>
+        <p class="log__row step" data-step="logAD">
+          <span class="m"><i>A</i> <span class="op">∼</span> <i>D</i></span>
+          <span class="log__note"><span class="m"><i>A</i></span> 与 <span class="m"><i>D</i></span> 处于热平衡</span>
+        </p>
+        <p class="log__row log__row--eq step" data-step="logEqA">
+          <span class="m">[<i>A</i>] <span class="op">=</span> {<i>A</i>, <i>B</i>, <i>D</i>}</span>
+        </p>
+        <p class="log__row log__row--eq step" data-step="logEqC">
+          <span class="m">[<i>C</i>] <span class="op">=</span> {<i>C</i>, <i>E</i>, <i>F</i>}</span>
+        </p>
+        <p class="log__row log__row--eq step" data-step="logEqG">
+          <span class="m">[<i>G</i>] <span class="op">=</span> {<i>G</i>, <i>H</i>}</span>
+        </p>
+      </div>
+
+      <!-- ========================= 分类的两句话 ========================= -->
+      <div class="cls">
+        <p class="cls__line step" data-step="cls1">热平衡关系把系统状态分成了若干个互不重叠的类别。</p>
+        <p class="cls__line step" data-step="cls2">每一个类别，就是一个热平衡等价类。</p>
+      </div>
+
+      <p class="cls3 step" data-step="cls3">我们已经能够按热平衡关系分类。</p>
+
+      <!-- ====================== 数字标签（闸门） ======================== -->
+      <div class="ask-tag step" data-step="askTag">
+        <p class="ask-tag__q">如果希望用一个数字标记每一个类别呢？</p>
+        <button type="button" class="btn btn--primary" data-tag-btn>给它们一个标签</button>
+      </div>
+
+      <p class="note step" data-step="note">这些数字是我们给类别贴上的标签，不是热平衡关系本身自动产生的。</p>
+
+      <!-- =========================== θ 的含义 =========================== -->
+      <p class="m-display m-display--same step" data-step="same">
+        <span class="m"><i>θ</i>(<i>A</i>) <span class="op">=</span> <i>θ</i>(<i>B</i>) <span class="op">=</span> <i>θ</i>(<i>D</i>) <span class="op">=</span> 20</span>
+      </p>
+
+      <p class="key-line step" data-step="key1">不同的系统状态可以拥有相同的 <span class="m"><i>θ</i></span>。</p>
+      <p class="key-line key-line--soft step" data-step="key2">因为它们属于同一个热平衡等价类。</p>
+
+      <p class="m-box-wrap step" data-step="core">
+        <span class="m-box"><span class="m"><i>A</i> <span class="op">∼</span> <i>B</i></span> <span class="op">⟺</span> <span class="m"><i>θ</i>(<i>A</i>) <span class="op">=</span> <i>θ</i>(<i>B</i>)</span></span>
+      </p>
+
+      <p class="repr step" data-step="repr1"><span class="m"><i>θ</i></span> 是对热平衡等价类的一种数值表示。</p>
+      <p class="repr step" data-step="repr2">这样的 <span class="m"><i>θ</i></span> 可以作为一种“经验温度”。</p>
+      <p class="repr repr--warn step" data-step="not1to1"><span class="m"><i>θ</i></span> 不是系统状态与实数之间的一一对应。</p>
+
+      <p class="m-box-wrap step" data-step="bijection">
+        <span class="m-box box-text">热平衡等价类 <span class="op">⟷</span> 温度数值标签</span>
+      </p>
+
+      <!-- ========================= 留下的问题 =========================== -->
+      <div class="qs">
+        <p class="qs__line step" data-step="q1">为什么是 20、50、80？</p>
+        <p class="qs__line step" data-step="q2">为什么不是 2、5、8？</p>
+        <p class="qs__line step" data-step="q3">为什么不是 40、100、160？</p>
+      </div>
+
+      <p class="noscale step" data-step="noscale">温度有了，但具体的“刻度”还没有。</p>
+    </div>
+
+    <!-- ============================ NextButton ========================== -->
+    <footer class="scene__foot">
+
+      <div class="cta-row step" data-step="cta">
+        <a class="btn btn--primary" href="scene4.html">
+          研究温度的刻度<span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="scene__utils">
+        <a class="scene__back" href="scene2.html">← 第二幕</a>
+        <button type="button" class="btn-text" data-replay>重播本幕</button>
+        <span class="scene__utils-hint">按 R 重播 · 按 Enter 继续</span>
+      </div>
+
+    </footer>
+  </section>
+</main>
+
+<noscript>
+  <p class="noscript">本页的推理由 JavaScript 逐步展开；未启用 JavaScript 时，全部文字会一次显示。</p>
+</noscript>
+
+<script src="js/scene3.js" defer></script>
+</body>
+</html>

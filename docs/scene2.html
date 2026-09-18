@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>从热平衡到温度 · 第二幕：去掉温度，只留下热平衡关系</title>
+<meta name="description" content="大学基础物理交互教材第二幕：暂时禁止使用“温度”这个词，只描述系统之间的热接触，以及它们在足够长时间后不再变化的状态。">
+<meta name="color-scheme" content="light">
+
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/scene2.css">
+
+<!-- 只在启用 JavaScript 时隐藏待出现元素；未启用时全部内容一次显示 -->
+<script>document.documentElement.className = 'js';</script>
+</head>
+<body>
+<a class="skip-link" href="#scene2">跳到第二幕正文</a>
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <p class="masthead__eyebrow">从热平衡到温度</p>
+    <p class="masthead__meta">第二幕 / 共七幕</p>
+  </div>
+</header>
+
+<main class="stage">
+  <section class="scene scene--2" id="scene2" data-scene="2" aria-labelledby="scene2-title">
+    <h1 class="visually-hidden" id="scene2-title">第二幕：去掉温度，只留下热平衡关系</h1>
+
+    <p class="scene__lead scene__lead--ask step" data-step="lead">如果暂时禁止使用“温度”，我们还能说什么？</p>
+
+    <div class="scene__canvas">
+
+      <!-- ======================= ThermalContact ======================= -->
+      <div class="lab">
+
+        <div class="systems" data-systems>
+
+          <div class="system step" data-step="sysA">
+            <span class="system__name">系统 <span class="m"><i>A</i></span></span>
+          </div>
+
+          <div class="middle">
+            <button type="button" class="contact step" data-contact data-step="contact">
+              <svg class="contact__glyph" viewBox="0 0 80 12" aria-hidden="true" focusable="false">
+                <line x1="10" y1="6" x2="70" y2="6"></line>
+                <polygon points="0,6 10,2.6 10,9.4"></polygon>
+                <polygon points="80,6 70,2.6 70,9.4"></polygon>
+              </svg>
+              <span class="contact__label">允许热接触</span>
+            </button>
+
+            <div class="via-c step" data-step="viaC">
+              <span class="via-c__arm" aria-hidden="true"></span>
+              <div class="system">
+                <span class="system__name">系统 <span class="m"><i>C</i></span></span>
+              </div>
+              <span class="via-c__arm" aria-hidden="true"></span>
+            </div>
+          </div>
+
+          <div class="system step" data-step="sysB">
+            <span class="system__name">系统 <span class="m"><i>B</i></span></span>
+          </div>
+
+        </div>
+
+        <figure class="trace step" data-step="trace" data-trace-figure>
+          <div class="trace__legend">
+            <span class="key key--a" aria-hidden="true"></span>A 放热
+            <span class="key key--b" aria-hidden="true"></span>B 吸热
+          </div>
+          <svg class="trace__svg" data-trace viewBox="0 0 320 72" role="img"
+               aria-label="A 与 B 之间热流量随时间变化的示意：热接触之前两条曲线都停在零线上；接触之后两者开始交换热量，分别向零线的两侧张开；随后幅度逐渐减小，最后重新并回零线，热量交换停止">
+            <path class="trace__area step" data-step="traceArea" d=""></path>
+            <path class="trace__curve trace__curve--a" data-trace-a></path>
+            <path class="trace__curve trace__curve--b" data-trace-b></path>
+            <line class="trace__axis" x1="2" y1="32" x2="312" y2="32"></line>
+            <path class="trace__contact" data-trace-contact></path>
+            <path class="trace__settle step" data-step="traceSettle" d="M 220 6 L 220 58"></path>
+          </svg>
+          <figcaption class="trace__caption">A 与 B 之间的热流量随时间的变化（示意图，无刻度；零线表示没有热量交换）</figcaption>
+          <p class="trace__note step" data-step="traceNote1">两条曲线重新并回零线：热量交换停止了。</p>
+          <p class="trace__note step" data-step="traceNote2">阴影面积就是这段时间里交换的总热量：它并不为 0。</p>
+        </figure>
+
+        <p class="lab__hint step" data-step="hint">点击“允许热接触”，让 <span class="m"><i>A</i></span> 与 <span class="m"><i>B</i></span> 接触。</p>
+      </div>
+
+      <!-- ==================== EquilibriumDefinition ==================== -->
+      <div class="definition">
+        <p class="definition__line step" data-step="def1">经过足够长时间后，宏观状态不再发生变化。</p>
+        <p class="definition__line definition__line--key step" data-step="def1b">两者之间没有净热量交换。</p>
+        <p class="definition__line step" data-step="def2">我们称 <span class="m"><i>A</i></span> 与 <span class="m"><i>B</i></span> 处于热平衡。</p>
+      </div>
+
+      <p class="note step" data-step="note">注意：这里没有使用“温度”来定义热平衡。</p>
+
+      <!-- ========================== RelationLog ========================== -->
+      <div class="log">
+        <p class="log__row step" data-step="relAB1">
+          <span class="m"><i>A</i> <span class="op">∼</span> <i>B</i></span>
+          <span class="log__note">直接热接触得到</span>
+        </p>
+        <p class="log__row step" data-step="relAC">
+          <span class="m"><i>A</i> <span class="op">∼</span> <i>C</i></span>
+          <span class="log__note"><span class="m"><i>A</i></span> 与 <span class="m"><i>C</i></span> 处于热平衡</span>
+        </p>
+        <p class="log__row step" data-step="relBC">
+          <span class="m"><i>B</i> <span class="op">∼</span> <i>C</i></span>
+          <span class="log__note"><span class="m"><i>B</i></span> 与 <span class="m"><i>C</i></span> 处于热平衡</span>
+        </p>
+        <p class="ask ask--inline step" data-step="ask">那么 <span class="m"><i>A</i></span> 和 <span class="m"><i>B</i></span> 呢？</p>
+
+        <p class="log__row log__row--derived step" data-step="relAB2">
+          <span class="m"><i>A</i> <span class="op">∼</span> <i>B</i></span>
+          <span class="log__note">由上面两行与第零定律得到</span>
+        </p>
+      </div>
+
+      <p class="core step" data-step="core">这正是热力学第零定律的核心内容。</p>
+
+      <div class="law step" data-step="law">
+        <p class="m-display">
+          <span class="m"><i>A</i> <span class="op">∼</span> <i>C</i>,&nbsp;&nbsp;<i>B</i> <span class="op">∼</span> <i>C</i> <span class="op">⟹</span> <i>A</i> <span class="op">∼</span> <i>B</i></span>
+        </p>
+        <p class="law__caption">热力学第零定律</p>
+      </div>
+
+      <!-- ========================= ThreeProperties ======================= -->
+      <div class="props" data-props>
+
+        <div class="prop prop--1 step" data-step="p1">
+          <p class="prop__formula"><span class="m"><i>A</i> <span class="op">∼</span> <i>A</i></span></p>
+          <p class="prop__text">一个系统与自身处于热平衡。</p>
+          <p class="prop__name">自反性<span class="prop__tick" aria-hidden="true">✓</span></p>
+        </div>
+
+        <div class="prop prop--2 step" data-step="p2">
+          <p class="prop__formula"><span class="m"><i>A</i> <span class="op">∼</span> <i>B</i> <span class="op">⇒</span> <i>B</i> <span class="op">∼</span> <i>A</i></span></p>
+          <p class="prop__text">热平衡关系是对称的。</p>
+          <p class="prop__name">对称性<span class="prop__tick" aria-hidden="true">✓</span></p>
+        </div>
+
+        <div class="prop prop--3 step" data-step="p3">
+          <p class="prop__formula"><span class="m"><i>A</i> <span class="op">∼</span> <i>C</i>, <i>B</i> <span class="op">∼</span> <i>C</i> <span class="op">⇒</span> <i>A</i> <span class="op">∼</span> <i>B</i></span></p>
+          <p class="prop__text">这正是第零定律的内容。</p>
+          <p class="prop__name">传递性<span class="prop__tick" aria-hidden="true">✓</span></p>
+        </div>
+
+      </div>
+
+      <!-- ====================== 等价关系（结论） ========================== -->
+      <div class="equiv">
+        <p class="m-box-wrap step" data-step="equiv">
+          <span class="m-box box-text">热平衡关系是一种等价关系</span>
+        </p>
+        <p class="after step" data-step="after">我们原本只是在描述“哪些系统彼此处于热平衡”，现在却发现这种关系具有特殊的数学结构。</p>
+      </div>
+
+      <p class="end-ask step" data-step="endask">这种等价关系，把所有系统分成了什么？</p>
+    </div>
+
+    <!-- ============================ NextButton ========================== -->
+    <footer class="scene__foot">
+
+      <div class="cta-row step" data-step="cta">
+        <a class="btn btn--primary" href="scene3.html">
+          看看它如何分类<span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="scene__utils">
+        <a class="scene__back" href="index.html">← 第一幕</a>
+        <button type="button" class="btn-text" data-replay>重播本幕</button>
+        <span class="scene__utils-hint">按 R 重播 · 按 Enter 继续</span>
+      </div>
+
+    </footer>
+  </section>
+</main>
+
+<noscript>
+  <p class="noscript">本页的推理由 JavaScript 逐步展开；未启用 JavaScript 时，全部文字会一次显示。</p>
+</noscript>
+
+<script src="js/scene2.js" defer></script>
+</body>
+</html>

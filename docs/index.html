@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>从热平衡到温度 · 第一幕：一个看似合理的证明</title>
+<meta name="description" content="大学基础物理交互教材：从热平衡现象和热力学第零定律出发，追问“温度”这个概念是如何被建立起来的。第一幕：一个看似合理的证明。">
+<meta name="color-scheme" content="light">
+
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/scene1.css">
+
+<!-- 只在启用 JavaScript 时隐藏待出现元素；未启用时全部内容一次显示 -->
+<script>document.documentElement.className = 'js';</script>
+</head>
+<body>
+<a class="skip-link" href="#scene1">跳到第一幕正文</a>
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <p class="masthead__eyebrow">从热平衡到温度</p>
+    <p class="masthead__meta">第一幕 / 共七幕</p>
+  </div>
+</header>
+
+<main class="stage">
+  <section class="scene scene--1" id="scene1" data-scene="1" aria-labelledby="scene1-title">
+    <h1 class="visually-hidden" id="scene1-title">第一幕：一个看似合理的证明</h1>
+
+    <p class="scene__lead step" data-step="lead">先看一个看起来很自然的推理。</p>
+
+    <div class="scene__canvas">
+
+      <!-- ========================== LogicChain ========================== -->
+      <div class="scene__frame">
+
+        <div class="chain" data-chain role="group"
+             aria-label="逻辑链：温度相等，指向热平衡，再指向温度相等，并由回环箭头指回起点">
+
+          <div class="node step" data-step="n1" data-node="1" tabindex="0"
+               data-hint="这一步的“温度”从哪儿来？">
+            <span class="node__text">温度相等</span>
+          </div>
+
+          <svg class="link step" data-step="link1" viewBox="0 0 14 40" width="14" height="40"
+               aria-hidden="true" focusable="false">
+            <line x1="7" y1="0" x2="7" y2="30"></line>
+            <polygon points="7,39 2.6,30.4 11.4,30.4"></polygon>
+          </svg>
+
+          <div class="node step" data-step="n2" data-node="2" tabindex="0"
+               data-hint="这里的“热平衡”是用什么定义的？">
+            <span class="node__text">热平衡</span>
+          </div>
+
+          <svg class="link step" data-step="link2" viewBox="0 0 14 40" width="14" height="40"
+               aria-hidden="true" focusable="false">
+            <line x1="7" y1="0" x2="7" y2="30"></line>
+            <polygon points="7,39 2.6,30.4 11.4,30.4"></polygon>
+          </svg>
+
+          <div class="node step" data-step="n3" data-node="3" tabindex="0"
+               data-hint="这个结论是怎么得到的？">
+            <span class="node__text">温度相等</span>
+          </div>
+
+          <!-- 回环箭头：由 js/scene1.js 按实际排版计算路径后绘制 -->
+          <svg class="chain__loop" data-loop viewBox="0 0 100 100" preserveAspectRatio="none"
+               role="img" aria-label="回环箭头：从第三个“温度相等”指回第一个“温度相等”">
+            <title>回环箭头：从第三个“温度相等”指回第一个“温度相等”</title>
+            <path data-loop-path d=""></path>
+            <polygon data-loop-head points=""></polygon>
+          </svg>
+
+        </div>
+
+        <p class="verdict step" data-step="verdict">因此，第零定律证明了温度的存在。</p>
+      </div>
+
+      <!-- ======================= RevealAnimation ======================== -->
+      <div class="doubt" aria-live="polite">
+        <p class="doubt__line doubt__line--1 step" data-step="doubt1">真的是这样吗？</p>
+        <p class="doubt__line doubt__line--2 step" data-step="doubt2">仔细看看这个推理。</p>
+        <p class="doubt__line doubt__line--3 step" data-step="doubt3">我们真的从头到尾都没有使用“温度”吗？</p>
+        <p class="doubt__tip step" data-step="tip">把光标移到链上的每一步，逐个检查。</p>
+      </div>
+    </div>
+
+    <!-- ========================== NextButton =========================== -->
+    <footer class="scene__foot">
+
+      <div class="cta-row step" data-step="cta">
+        <a class="btn btn--primary" href="scene2.html">
+          重新检查这个证明<span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="scene__utils">
+        <button type="button" class="btn-text" data-replay>重播本幕</button>
+        <span class="scene__utils-hint">按 R 重播 · 按 Enter 继续</span>
+      </div>
+
+    </footer>
+  </section>
+</main>
+
+<noscript>
+  <p class="noscript">本页的推理由 JavaScript 逐步展开；未启用 JavaScript 时，全部文字会一次显示。</p>
+</noscript>
+
+<script src="js/scene1.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+/* ==========================================================================
+   Scene 5 · 一把尺子究竟要满足什么要求
+   连续变化的热系统 / 三条要求 / 重新标度滑块 / 三把抽象尺子 / 小结
+   依赖 styles/base.css 的设计令牌与 .step 出现机制
+   ========================================================================== */
+
+/* 幕首提问：沿用前几幕的醒目样式 */
+.scene--5 .scene__lead--ask{
+  font-family: var(--serif);
+  font-size: clamp(1.02rem, 2.8vw, 1.16rem);
+  letter-spacing: .04em;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* -------------------------------------------------- 连续变化的热系统 */
+.sys{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  width: 100%;
+  max-width: 24rem;
+}
+.sys__track{
+  position: relative;
+  width: 100%;
+  height: 2.6rem;
+}
+.sys__rule{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1.05rem;
+  height: 1px;
+  background: var(--rule-strong);
+}
+.sys__marker{
+  position: absolute;
+  top: .65rem;
+  left: 50%;
+  width: .9rem;
+  height: .9rem;
+  margin-left: -.45rem;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  will-change: left;
+}
+.sys__end{
+  position: absolute;
+  top: 1.35rem;
+  font-family: var(--sans);
+  font-size: .7rem;
+  letter-spacing: .1em;
+  color: var(--ink-3);
+}
+.sys__end--cold{ left: 0 }
+.sys__end--hot{ right: 0 }
+.sys__label{
+  font-size: 1.06rem;
+  letter-spacing: .1em;
+  color: var(--ink);
+}
+.sys__caption{
+  font-family: var(--sans);
+  font-size: .72rem;
+  letter-spacing: .04em;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+/* ---------------------------------------------------------- 三句话
+   .statement / .statement__line 已被第六幕复用，上移到 styles/base.css。 */
+
+/* -------------------------------------------------- 重新标度（滑块） */
+.scale{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  width: 100%;
+  max-width: 24rem;
+}
+.scale__title{
+  font-size: .98rem;
+  letter-spacing: .02em;
+  color: var(--ink);
+  text-align: center;
+}
+.scale__track{
+  position: relative;
+  width: 100%;
+  height: 2.2rem;
+}
+.scale__rule{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1rem;
+  height: 1px;
+  background: var(--rule-strong);
+}
+.scale__tick{
+  position: absolute;
+  top: .1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-50%);
+}
+.scale__tick::before{
+  content: "";
+  width: 1px;
+  height: .85rem;
+  background: var(--rule-strong);
+}
+.scale__num{
+  font-size: .8rem;
+  color: var(--ink-3);
+}
+.scale__cursor{
+  position: absolute;
+  top: .55rem;
+  left: 20%;
+  width: .55rem;
+  height: .55rem;
+  margin-left: -.275rem;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: left .25s var(--ease);
+}
+.scale__read{
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  font-size: 1.04rem;
+  color: var(--ink);
+}
+.scale__arrow{ color: var(--rule-strong) }
+.scale__class{
+  font-size: .92rem;
+  color: var(--ink-2);
+  text-align: center;
+}
+.scale__cls{ color: var(--accent) }
+.scale__ex{
+  font-family: var(--sans);
+  font-size: .76rem;
+  letter-spacing: .04em;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+/* ---------------------------------------------------------- 三把尺子 */
+.rulers{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  width: 100%;
+}
+.rulers__title{
+  font-size: .95rem;
+  letter-spacing: .02em;
+  color: var(--ink-2);
+  text-align: center;
+}
+.ruler{
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  width: 100%;
+  max-width: 24rem;
+  padding: .3rem 0;
+  cursor: pointer;
+  transition: opacity .4s var(--ease);
+}
+/* 点一下可以把它藏起来，方便比较 */
+.ruler.is-off{ opacity: .2 }
+.ruler__name{
+  flex: 0 0 3.4rem;
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .06em;
+  color: var(--ink-3);
+}
+.ruler__track{
+  position: relative;
+  flex: 1;
+  height: 2.4rem;
+}
+.ruler__line{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1.05rem;
+  height: 1px;
+  background: var(--rule-strong);
+}
+.ruler__tick{
+  position: absolute;
+  top: .35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .12rem;
+  transform: translateX(-50%);
+}
+.ruler__mark{
+  width: 1px;
+  height: .6rem;
+  background: var(--rule-strong);
+}
+.ruler__num{
+  font-family: var(--math);
+  font-size: .78rem;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.rulers__hint{
+  font-family: var(--sans);
+  font-size: .72rem;
+  letter-spacing: .04em;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------- 小结 */
+.summary{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  width: 100%;
+}
+.summary__line{
+  max-width: 28rem;
+  font-size: .95rem;
+  color: var(--ink-2);
+  text-align: center;
+}
+.end-ask{
+  font-size: clamp(1.02rem, 2.8vw, 1.14rem);
+  letter-spacing: .04em;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------- 窄屏 */
+@media (max-width: 420px){
+  .statement__line{ font-size: .95rem }
+  .ruler__name{ flex-basis: 2.9rem; font-size: .68rem }
+  .ruler__num{ font-size: .72rem }
+  .scale__ex{ font-size: .72rem }
+}
+

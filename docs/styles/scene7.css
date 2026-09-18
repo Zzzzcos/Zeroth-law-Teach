@@ -1,0 +1,326 @@
+/* ==========================================================================
+   Scene 7 · 现在，我们真的可以测温了
+   三个系统自己分类 / 数字标签 / 换温标 / 拆开第一幕的闭环 / 概念地图
+   依赖 styles/base.css 的设计令牌与 .step 出现机制
+   ========================================================================== */
+
+/* 幕首提问：沿用前几幕的醒目样式 */
+.scene--7 .scene__lead--ask{
+  font-family: var(--serif);
+  font-size: clamp(1.02rem, 2.8vw, 1.16rem);
+  letter-spacing: .04em;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* ------------------------------------------------- 三个系统：分类区 */
+.pairing{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 8vw, 3.6rem);
+  width: 100%;
+  padding: 1.8rem .8rem;
+}
+/* 三个系统聚成同一个等价类时出现的虚线框 */
+.pairing__group{
+  position: absolute;
+  inset: 0;
+  border: 1px dashed var(--accent-line);
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity .5s var(--ease);
+}
+.pairing.is-grouped .pairing__group{ opacity: 1 }
+
+.psys{
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+  font-size: 1.1rem;
+  color: var(--ink);
+  box-shadow: 0 1px 2px rgba(28, 27, 25, .04), 0 12px 24px -20px rgba(28, 27, 25, .55);
+  cursor: pointer;
+  touch-action: none;
+  transition: border-color .25s var(--ease),
+              background-color .25s var(--ease),
+              box-shadow .25s var(--ease);
+}
+/* 被选中（等待与另一个系统配对） */
+.psys.is-sel{
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 3px var(--accent-soft), 0 12px 24px -20px rgba(28, 27, 25, .55);
+}
+/* 拖动中 */
+.psys.is-drag{
+  z-index: 5;
+  border-color: var(--accent);
+  cursor: grabbing;
+}
+
+/* 表示"处于热平衡"的虚线（坐标由脚本写入） */
+.pairing__links{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+.pairing__links line{
+  stroke: var(--accent-line);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 3;
+  opacity: 0;
+  transition: opacity .5s var(--ease);
+}
+.pairing__links line.is-in{ opacity: 1 }
+
+.pairing__hint{
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .04em;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+/* --------------------------------------------------------- 数字标签 */
+.pick{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .45rem;
+  text-align: center;
+}
+.pick__q{
+  font-size: 1rem;
+  color: var(--ink);
+}
+.pick__row{
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+.pick__row input{
+  width: 5.6rem;
+  padding: .45rem .6rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  background: var(--surface);
+  font-family: var(--math);
+  font-size: 1rem;
+  color: var(--ink);
+}
+.pick__row input:focus{ border-color: var(--accent-line) }
+.pick__hint{
+  font-family: var(--sans);
+  font-size: .72rem;
+  letter-spacing: .04em;
+  color: var(--ink-3);
+}
+/* 确定之后，输入行退到后面 */
+.pick.is-done .pick__row{
+  opacity: .35;
+  pointer-events: none;
+}
+
+/* 居中的数学显示行（与第三幕同款） */
+.m-display--same{
+  font-size: 1.14rem;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* ---------------------------------------------------------- 换一种温标 */
+.switch{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .8rem;
+  width: 100%;
+}
+.switch__out{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .6rem;
+}
+.switch__vals{
+  display: flex;
+  align-items: baseline;
+  gap: .7rem;
+  font-size: 1.06rem;
+  color: var(--ink);
+}
+.switch__arrow{ color: var(--rule-strong) }
+
+/* --------------------------------------------------- 回到第一幕的闭环 */
+.recall{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .7rem;
+  width: 100%;
+}
+.recall__title{
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .12em;
+  color: var(--ink-3);
+}
+.loop{
+  position: relative;
+  padding-right: 1.8rem;
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
+}
+/* 闭环被拆开：不能整块消失，否则小标题会“孤零零”地没有内容。
+   这里让整块淡下去、并把回环的环改成虚线，表示它已经被拆开。 */
+.recall.is-broken .loop{
+  opacity: .22;
+}
+.recall.is-broken .loop__ring{
+  border-style: dashed;
+}
+.recall.is-broken .loop__ring::before{
+  border-right-color: var(--rule-strong);
+}
+.loop__nodes{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+}
+.loop__node{
+  padding: .42rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  font-size: .98rem;
+  letter-spacing: .08em;
+  color: var(--ink-2);
+}
+.loop__arrow{
+  font-size: .76rem;
+  color: var(--rule-strong);
+}
+/* 右侧的回环箭头：纯 CSS 的环 + 箭头尖 */
+.loop__ring{
+  position: absolute;
+  right: 0;
+  top: .1rem;
+  bottom: .1rem;
+  width: 1.8rem;
+  border: 1px solid var(--accent-line);
+  border-left: 0;
+  border-radius: 0 10px 10px 0;
+}
+.loop__ring::before{
+  content: "";
+  position: absolute;
+  left: -.34rem;
+  top: -.3rem;
+  border-top: .3rem solid transparent;
+  border-bottom: .3rem solid transparent;
+  border-right: .44rem solid var(--accent-line);
+}
+.recall__say{
+  font-size: 1rem;
+  color: var(--ink-2);
+  text-align: center;
+}
+.recall__say strong{ color: var(--ink) }
+
+/* ------------------------------------------------------------ 概念地图 */
+.chain--map .chain__line{
+  font-size: .94rem;
+  color: var(--ink-3);
+}
+.chain--map .chain__down{
+  font-size: .72rem;
+  color: var(--rule-strong);
+}
+.chain--map .chain__line--end{ color: var(--ink) }
+.endpage__title{
+  margin-top: .6rem;
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .18em;
+  color: var(--ink-3);
+  text-align: center;
+}
+.endpage__q{
+  max-width: 30rem;
+  padding: .6rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--accent-line);
+  border-radius: 4px;
+  font-size: 1.04rem;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* -------------------------------------------------------- 结束页：署名
+   与前面"具体温标"之间用一条分隔线划出明显界限；
+   作者标注之后的两行文字更淡一些。 */
+.sign{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .3rem;
+  margin-top: 2.6rem;
+  text-align: center;
+}
+.sign__rule{
+  width: min(22rem, 90%);
+  height: 1px;
+  margin-bottom: 1.6rem;
+  background: var(--rule-strong);
+}
+/* 余弦函数图像：带纵轴与横轴，曲线从纵轴上的最大值（即 x = 0 处）开始 */
+.sign__logo{
+  width: 9rem;
+  height: auto;
+  margin-bottom: .7rem;
+}
+.sign__axis{
+  stroke: var(--ink-3);
+  stroke-width: 1;
+}
+.sign__head{ fill: var(--ink-3) }
+.sign__curve{
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.sign__line{
+  font-size: .95rem;
+  color: var(--ink-2);
+}
+.sign__line--soft{
+  font-family: var(--sans);
+  font-size: .78rem;
+  letter-spacing: .04em;
+  color: var(--ink-3);
+  opacity: .72;
+}
+
+/* ---------------------------------------------------------------- 窄屏 */
+@media (max-width: 420px){
+  .pairing{ gap: 1.6rem; padding: 1.4rem .4rem }
+  .psys{ width: 2.8rem; height: 2.8rem; font-size: 1rem }
+  .loop__node{ font-size: .92rem; padding: .35rem .8rem }
+  .switch__vals{ font-size: 1rem }
+}
+

@@ -1,0 +1,316 @@
+/* ==========================================================================
+   Scene 4 · 同一个温度，可以有不同的数字吗
+   类别标签 / 换一种标记 / θ→θ′ 的映射 / 类别相撞 / 单调性实验 / 收束
+   依赖 styles/base.css 的设计令牌与 .step 出现机制
+   ========================================================================== */
+
+/* 幕首提问：沿用第二、三幕的醒目样式 */
+.scene--4 .scene__lead--ask{
+  font-family: var(--serif);
+  font-size: clamp(1.02rem, 2.8vw, 1.16rem);
+  letter-spacing: .04em;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* -------------------------------------------------- 类别标签（三个一排） */
+.labels{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(.55rem, 3vw, 1.3rem);
+  width: 100%;
+}
+.lchip{
+  display: flex;
+  align-items: baseline;
+  gap: .3rem;
+  padding: .5rem .85rem;
+  background: var(--surface);
+  border: 1px solid var(--accent-line);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(28, 27, 25, .04), 0 12px 24px -20px rgba(28, 27, 25, .55);
+  transition: border-color .3s var(--ease),
+              background-color .3s var(--ease),
+              transform .5s var(--ease);
+}
+.lchip__num{ color: var(--accent) }
+/* 标签刚被替换时闪一下，提醒"数字换了" */
+.lchip.is-changed{
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* ------------------------------------------------------------ 换一种标记 */
+.relabel{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  text-align: center;
+}
+.relabel__hint{
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .06em;
+  color: var(--ink-3);
+}
+/* 换过两次之后按钮退到后面 */
+.relabel.is-done .btn{
+  opacity: .3;
+  pointer-events: none;
+}
+.relabel__note{
+  font-size: .98rem;
+  letter-spacing: .02em;
+  color: var(--ink-2);
+  text-align: center;
+}
+
+/* ------------------------------------------------------- θ → θ′ 的映射 */
+.map{
+  width: 100%;
+  max-width: 24rem;
+}
+.map__title{
+  margin-bottom: .55rem;
+  font-size: .95rem;
+  letter-spacing: .02em;
+  color: var(--ink-2);
+  text-align: center;
+}
+.map__rows{ display: grid; gap: .15rem }
+.map__row{
+  display: grid;
+  grid-template-columns: 2.6rem repeat(3, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+.map__label{
+  justify-self: start;
+  font-size: .92rem;
+  color: var(--ink-3);
+}
+.map__val{ font-size: 1.02rem }
+.map__val--out{ color: var(--accent) }
+.map__down{ font-size: .82rem; color: var(--rule-strong) }
+
+/* ------------------------------------------------------- 类别相撞实验 */
+.collide{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .7rem;
+  width: 100%;
+}
+.collide__q{
+  font-size: 1rem;
+  letter-spacing: .02em;
+  color: var(--ink);
+  text-align: center;
+}
+.line{
+  position: relative;
+  width: 100%;
+  max-width: 24rem;
+  height: 4rem;
+}
+.line__rule{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 2.5rem;
+  height: 1px;
+  background: var(--rule-strong);
+}
+.marker{
+  position: absolute;
+  top: .2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .05rem;
+  transform: translateX(-50%);
+  transition: left .6s var(--ease);
+}
+.marker__name{ font-size: .78rem; color: var(--ink-2) }
+.marker__val{ font-size: .92rem; color: var(--accent) }
+/* 两个类别被压到同一个数字上 */
+.marker.is-hit .marker__name{ color: var(--accent) }
+.marker.is-hit{ animation: marker-hit .6s var(--ease) }
+@keyframes marker-hit{
+  0%{ transform: translateX(-50%) scale(1) }
+  45%{ transform: translateX(-50%) scale(1.18) }
+  100%{ transform: translateX(-50%) scale(1) }
+}
+
+/* .slider / .slider__label 已被第五幕复用，上移到 styles/base.css */
+
+.collide__ask{
+  font-size: 1rem;
+  letter-spacing: .03em;
+  color: var(--ink-2);
+  text-align: center;
+}
+.collide__ans{
+  font-size: .98rem;
+  letter-spacing: .02em;
+  color: var(--ink-2);
+  text-align: center;
+}
+.collide__ans--key{ color: var(--ink) }
+.collide__formula{
+  font-size: 1rem;
+  color: var(--ink-2);
+  text-align: center;
+}
+
+/* --------------------------------------------------------- 双射与三条 */
+.ask2{
+  font-size: clamp(1rem, 2.8vw, 1.1rem);
+  letter-spacing: .03em;
+  color: var(--ink);
+  text-align: center;
+}
+.bij{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+  text-align: center;
+}
+.bij__formula{ font-size: 1.06rem }
+.bij__line{
+  font-size: .95rem;
+  color: var(--ink-2);
+}
+.three{
+  display: grid;
+  gap: .25rem;
+  width: 100%;
+  max-width: 28rem;
+}
+.three__line{
+  font-size: .92rem;
+  line-height: 1.7;
+  color: var(--ink-2);
+}
+.three__k{
+  display: inline-block;
+  min-width: 5.2rem;
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------ 单调性 */
+.seg{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .5rem;
+}
+.seg__btn{
+  padding: .45rem .9rem;
+  background: none;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  font-family: var(--sans);
+  font-size: .82rem;
+  letter-spacing: .04em;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: border-color .3s var(--ease),
+              background-color .3s var(--ease),
+              color .3s var(--ease);
+}
+.seg__btn.is-on{
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.mono{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .6rem;
+  width: 100%;
+}
+.pair{
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  font-size: 1.02rem;
+}
+.pair__arrow{ color: var(--rule-strong) }
+.mono__verdict{
+  font-size: .95rem;
+  color: var(--ink-2);
+  text-align: center;
+}
+.mono__verdict--bad{ color: var(--accent) }
+.mono__note{
+  max-width: 28rem;
+  font-family: var(--sans);
+  font-size: .8rem;
+  line-height: 1.8;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+/* -------------------------------------------------------------- 收束 */
+.wrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .35rem;
+  text-align: center;
+}
+.wrap__sym{
+  font-size: 1.3rem;
+  color: var(--ink);
+}
+.wrap__text{
+  font-size: .95rem;
+  color: var(--ink-2);
+}
+.gaps{
+  width: 100%;
+  max-width: 28rem;
+}
+.gaps__title{
+  margin-bottom: .35rem;
+  font-size: .95rem;
+  color: var(--ink);
+  text-align: center;
+}
+.gaps__list{
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: .92rem;
+  line-height: 1.9;
+  color: var(--ink-2);
+}
+.frame__ex{
+  max-width: 30rem;
+  font-family: var(--sans);
+  font-size: .8rem;
+  line-height: 1.85;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+/* ------------------------------------------------------- 最终总结链
+   .chain / .chain__line / .chain__down 与 .last 已被第六幕复用，
+   上移到 styles/base.css（连同 chain-in 关键帧）。 */
+
+/* ---------------------------------------------------------------- 窄屏 */
+@media (max-width: 420px){
+  .labels{ gap: .45rem }
+  .lchip{ padding: .4rem .6rem; font-size: .92rem }
+  .map__row{ grid-template-columns: 2.1rem repeat(3, 1fr) }
+  .map__title{ font-size: .88rem }
+  .three__k{ min-width: 4.6rem }
+  .slider__label{ font-size: .7rem }
+}
+
+

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>从热平衡到温度 · 第五幕：一把尺子究竟要满足什么要求</title>
+<meta name="description" content="大学基础物理交互教材第五幕：温度数值不只是编号，还要能稳定、连续地描述冷热状态；同一批有序状态可以由不同的数值标度来描述。">
+<meta name="color-scheme" content="light">
+
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/scene5.css">
+
+<!-- 只在启用 JavaScript 时隐藏待出现元素；未启用时全部内容一次显示 -->
+<script>document.documentElement.className = 'js';</script>
+</head>
+<body>
+<a class="skip-link" href="#scene5">跳到第五幕正文</a>
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <p class="masthead__eyebrow">从热平衡到温度</p>
+    <p class="masthead__meta">第五幕 / 共七幕</p>
+  </div>
+</header>
+
+<main class="stage">
+  <section class="scene scene--5" id="scene5" data-scene="5" aria-labelledby="scene5-title">
+    <h1 class="visually-hidden" id="scene5-title">第五幕：一把尺子究竟要满足什么要求</h1>
+
+    <p class="scene__lead scene__lead--ask step" data-step="lead">一把尺子究竟要满足什么要求？</p>
+
+    <div class="scene__canvas">
+
+      <!-- ===================== 连续变化的热系统 ===================== -->
+      <div class="sys step" data-step="sys">
+        <div class="sys__track">
+          <span class="sys__rule" aria-hidden="true"></span>
+          <span class="sys__marker" data-marker aria-hidden="true"></span>
+          <span class="sys__end sys__end--cold">冷</span>
+          <span class="sys__end sys__end--hot">热</span>
+        </div>
+        <p class="sys__label" data-sys-label>中等</p>
+        <p class="sys__caption">一个热系统：状态正在连续地变化（示意图，不显示任何数字）</p>
+      </div>
+
+      <!-- ======================== 三句话 ============================== -->
+      <div class="statement">
+        <p class="statement__line step" data-step="st1">
+          如果 <span class="m"><i>θ</i></span> 只是编号，我们当然可以随便给每个状态编号。
+        </p>
+        <p class="statement__line statement__line--key step" data-step="st2">
+          但相近的物理状态，应该能够对应相近的数值。
+        </p>
+        <p class="statement__line statement__line--key step" data-step="st3">
+          状态发生连续变化时，温度表示也应该能够连续变化。
+        </p>
+      </div>
+
+      <!-- ==================== 重新标度实验（滑块） ===================== -->
+      <div class="scale step" data-step="scale">
+        <p class="scale__title">
+          重新标度：<span class="m"><i>θ′</i> <span class="op">=</span> 2<i>θ</i> <span class="op">+</span> 5</span>
+        </p>
+
+        <div class="scale__track">
+          <span class="scale__rule" aria-hidden="true"></span>
+          <span class="scale__tick" style="left:20%"><span class="scale__num m">[<i>A</i>]</span></span>
+          <span class="scale__tick" style="left:50%"><span class="scale__num m">[<i>C</i>]</span></span>
+          <span class="scale__tick" style="left:80%"><span class="scale__num m">[<i>G</i>]</span></span>
+          <span class="scale__cursor" data-cursor aria-hidden="true"></span>
+        </div>
+
+        <label class="slider">
+          <span class="slider__label">
+            拖动 <span class="m"><i>θ</i></span>，看 <span class="m"><i>θ′</i></span> 怎么跟着变
+          </span>
+          <input type="range" min="0" max="100" step="5" value="20" data-theta>
+        </label>
+
+        <p class="scale__read">
+          <span class="m"><i>θ</i> <span class="op">=</span> <span data-theta-out>20</span></span>
+          <span class="scale__arrow" aria-hidden="true">→</span>
+          <span class="m"><i>θ′</i> <span class="op">=</span> <span data-theta-prime>45</span></span>
+        </p>
+
+        <p class="scale__class">
+          与它最接近的类别：<span class="m scale__cls" data-theta-class>[<i>A</i>]</span>
+        </p>
+
+        <p class="scale__ex">
+          例如 <span class="m">20 <span class="op">→</span> 45</span>、<span class="m">50 <span class="op">→</span> 105</span>、<span class="m">80 <span class="op">→</span> 165</span>。
+        </p>
+      </div>
+
+      <p class="note step" data-step="scaleDone">重新标度可以改变数字，但不会改变系统之间的热平衡关系。</p>
+
+      <!-- ======================= 三把抽象的尺子 ======================== -->
+      <div class="rulers step" data-step="rulers">
+        <p class="rulers__title">三把抽象的“尺子”（它们描述的是同一批有序状态）</p>
+
+        <div class="ruler" data-ruler="A" role="button" tabindex="0" aria-pressed="true">
+          <span class="ruler__name">尺子 A</span>
+          <span class="ruler__track">
+            <span class="ruler__line" aria-hidden="true"></span>
+            <span class="ruler__tick" style="left:0%"><span class="ruler__mark"></span><span class="ruler__num">0</span></span>
+            <span class="ruler__tick" style="left:33.3%"><span class="ruler__mark"></span><span class="ruler__num">10</span></span>
+            <span class="ruler__tick" style="left:66.6%"><span class="ruler__mark"></span><span class="ruler__num">20</span></span>
+            <span class="ruler__tick" style="left:100%"><span class="ruler__mark"></span><span class="ruler__num">30</span></span>
+          </span>
+        </div>
+
+        <div class="ruler" data-ruler="B" role="button" tabindex="0" aria-pressed="true">
+          <span class="ruler__name">尺子 B</span>
+          <span class="ruler__track">
+            <span class="ruler__line" aria-hidden="true"></span>
+            <span class="ruler__tick" style="left:0%"><span class="ruler__mark"></span><span class="ruler__num">0</span></span>
+            <span class="ruler__tick" style="left:33.3%"><span class="ruler__mark"></span><span class="ruler__num">100</span></span>
+            <span class="ruler__tick" style="left:66.6%"><span class="ruler__mark"></span><span class="ruler__num">200</span></span>
+            <span class="ruler__tick" style="left:100%"><span class="ruler__mark"></span><span class="ruler__num">300</span></span>
+          </span>
+        </div>
+
+        <div class="ruler" data-ruler="C" role="button" tabindex="0" aria-pressed="true">
+          <span class="ruler__name">尺子 C</span>
+          <span class="ruler__track">
+            <span class="ruler__line" aria-hidden="true"></span>
+            <span class="ruler__tick" style="left:0%"><span class="ruler__mark"></span><span class="ruler__num"><span class="op">−</span>20</span></span>
+            <span class="ruler__tick" style="left:33.3%"><span class="ruler__mark"></span><span class="ruler__num">0</span></span>
+            <span class="ruler__tick" style="left:66.6%"><span class="ruler__mark"></span><span class="ruler__num">20</span></span>
+            <span class="ruler__tick" style="left:100%"><span class="ruler__mark"></span><span class="ruler__num">40</span></span>
+          </span>
+        </div>
+
+        <p class="rulers__hint">点一下某把尺子可以把它藏起来，比较刻度疏密与零点位置。</p>
+      </div>
+
+      <p class="statement__line statement__line--key step" data-step="rk1">数字本身不是热平衡关系。</p>
+      <p class="statement__line step" data-step="rk2">真正不变的是：哪些状态彼此热平衡，以及状态之间的大小规律。</p>
+
+      <!-- ============================= 小结 ============================ -->
+      <div class="summary">
+        <p class="summary__box step" data-step="box1">
+          <span class="m-box box-text">热平衡结构</span>
+        </p>
+        <p class="summary__line step" data-step="sum1">热平衡结构告诉我们“哪些状态可以归为同一类”。</p>
+        <p class="summary__box step" data-step="box2">
+          <span class="m-box box-text">温度数值表示</span>
+        </p>
+        <p class="summary__line step" data-step="sum2">温度标度进一步给这些类别安排数值。</p>
+      </div>
+
+      <p class="end-ask step" data-step="endask">那么，物理学为什么最终采用某些特定的温标？</p>
+    </div>
+
+    <!-- ============================ NextButton ========================== -->
+    <footer class="scene__foot">
+
+      <div class="cta-row step" data-step="cta">
+        <a class="btn btn--primary" href="scene6.html">
+          为什么最终是这些温标<span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="scene__utils">
+        <a class="scene__back" href="scene4.html">← 第四幕</a>
+        <button type="button" class="btn-text" data-replay>重播本幕</button>
+        <span class="scene__utils-hint">按 R 重播 · 按 Enter 继续</span>
+      </div>
+
+    </footer>
+  </section>
+</main>
+
+<noscript>
+  <p class="noscript">本页的推理由 JavaScript 逐步展开；未启用 JavaScript 时，全部文字会一次显示。</p>
+</noscript>
+
+<script src="js/scene5.js" defer></script>
+</body>
+</html>

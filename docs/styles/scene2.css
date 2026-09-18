@@ -1,0 +1,374 @@
+/* ==========================================================================
+   Scene 2 · 去掉温度，只留下热平衡关系
+   热接触与宏观状态变化图 / A—C—B 结构 / 关系记录 / 三个性质 / 聚合与结论
+   依赖 styles/base.css 的设计令牌与 .step 出现机制
+   ========================================================================== */
+
+/* 幕首提问：比第一幕的引导句更醒目 */
+.scene--2 .scene__lead--ask{
+  font-family: var(--serif);
+  font-size: clamp(1.02rem, 2.8vw, 1.16rem);
+  letter-spacing: .04em;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* ------------------------------------------------------------- 实验区 */
+.lab{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(.9rem, 3vh, 1.5rem);
+  width: 100%;
+}
+
+.systems{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(.5rem, 2.5vw, 1.2rem);
+  width: 100%;
+}
+
+.system{
+  padding: .7rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  font-size: 1rem;
+  letter-spacing: .06em;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(28, 27, 25, .04), 0 12px 24px -20px rgba(28, 27, 25, .55);
+}
+.system__name .m{ font-size: 1em }
+
+.middle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 阶段一：允许热接触（可点击） */
+.contact{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+  padding: .2rem .3rem;
+  background: none;
+  border: 0;
+  color: var(--ink-3);
+  cursor: pointer;
+  overflow: hidden;
+  max-width: 12rem;
+}
+.contact:hover{ color: var(--accent) }
+
+.js .contact.step{
+  transition:
+    color var(--dur-1) var(--ease),
+    opacity calc(var(--dur-2) * var(--step-scale)) var(--ease),
+    max-width calc(var(--dur-2) * var(--step-scale)) var(--ease),
+    visibility 0s linear calc(var(--dur-2) * var(--step-scale));
+}
+
+.contact__glyph{
+  width: 4.6rem;
+  height: .8rem;
+  overflow: visible;
+}
+.contact__glyph line{ stroke: currentColor; stroke-width: 1 }
+.contact__glyph polygon{ fill: currentColor }
+.contact__label{
+  font-family: var(--sans);
+  font-size: .72rem;
+  letter-spacing: .1em;
+}
+
+/* 接触过程：连接符轻微脉冲两次，提示"正在发生" */
+.contact.is-active{ color: var(--accent) }
+.contact.is-active .contact__glyph{ animation: contact-pulse 1.2s var(--ease) 2 }
+@keyframes contact-pulse{
+  0%, 100%{ opacity: 1 }
+  50%{ opacity: .3 }
+}
+
+/* 进入 A—C—B 阶段后，把接触按钮收起来
+   （选择器写成 .js .contact.step.is-hidden，才能压过 base.css 里的 .js .step.is-in） */
+.js .contact.step.is-hidden{
+  opacity: 0;
+  max-width: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* 阶段二：A —— C —— B */
+.js .via-c.step{
+  max-width: 0;
+  overflow: hidden;
+  transition: max-width calc(var(--dur-2) * var(--step-scale)) var(--ease);
+}
+.js .via-c.step.is-in{ max-width: 22rem }
+
+.via-c{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.via-c__arm{
+  width: clamp(1rem, 4vw, 2rem);
+  height: 1px;
+  background: var(--rule-strong);
+}
+
+/* ------------------------------------------------ 宏观状态随时间的变化图 */
+.trace{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .45rem;
+  width: 100%;
+  max-width: 26rem;
+  overflow: hidden;
+}
+.js .trace.step{
+  max-height: 22rem;
+  transition:
+    max-height calc(var(--dur-2) * var(--step-scale)) var(--ease),
+    opacity calc(var(--dur-2) * var(--step-scale)) var(--ease),
+    visibility 0s linear calc(var(--dur-2) * var(--step-scale));
+}
+.js .trace.step.is-collapsed{ max-height: 0; opacity: 0 }
+
+.trace__legend{
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .8rem;
+  color: var(--ink-3);
+}
+.key{
+  display: inline-block;
+  width: .75rem;
+  height: 2px;
+  margin-left: .7rem;
+  background: var(--ink);
+}
+.key:first-child{ margin-left: 0 }
+.key--b{ background: var(--ink-3) }
+
+.trace__svg{ display: block; width: 100%; height: auto }
+.trace__axis{ stroke: var(--rule-strong); stroke-width: 1 }
+.trace__contact{
+  stroke: var(--rule-strong);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0;
+  transition: opacity .3s var(--ease);
+}
+.trace__contact.is-in{ opacity: 1 }
+
+/* 曲线与零线围成的阴影面积 = 这段时间里交换的总热量（d 由脚本写入） */
+.trace__area{
+  fill: rgba(27, 58, 107, .16);
+  stroke: none;
+}
+
+/* "重新并回零线"的虚线标记 */
+.trace__settle{
+  stroke: var(--rule-strong);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+/* SVG 里的 .step 不要位移：竖直元素整体上移会显得奇怪 */
+.trace__area.step,
+.trace__settle.step{ transform: none }
+
+.trace__note{
+  font-family: var(--sans);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  color: var(--ink-3);
+}
+
+.trace__curve{
+  fill: none;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  /* --len 由脚本写入（路径总长），配合 .is-drawn 完成"时间流动"式描边 */
+  stroke-dasharray: var(--len, 0);
+  stroke-dashoffset: var(--len, 0);
+  transition: stroke-dashoffset calc(var(--trace-dur, 2.4s) * var(--step-scale)) linear;
+}
+.trace__curve--a{ stroke: var(--ink) }
+.trace__curve--b{ stroke: var(--ink-3) }
+.trace.is-drawn .trace__curve{ stroke-dashoffset: 0 }
+
+.trace__caption{
+  font-family: var(--sans);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  color: var(--ink-3);
+}
+
+.lab__hint{
+  font-family: var(--sans);
+  font-size: .76rem;
+  letter-spacing: .08em;
+  color: var(--ink-3);
+}
+.js .lab__hint.step.is-gone{ opacity: 0 }
+
+/* -------------------------------------------------------------- 定义 */
+.definition{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .3rem;
+  text-align: center;
+}
+.definition__line{
+  font-size: 1.02rem;
+  letter-spacing: .02em;
+}
+/* 定义里的关键一句：单独强调"两者之间没有净热量交换" */
+.definition__line--key{
+  padding: .12rem .85rem;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 3px;
+  letter-spacing: .04em;
+}
+
+/* .note（幕内强调句）与 .log / .log__row / .log__note（关系记录）
+   已被第三幕复用，故上移到 styles/base.css；本文件只保留第二幕特有的变体。 */
+/* .log__row--derived 已被第七幕复用，上移到 styles/base.css */
+
+.ask{
+  font-size: 1.06rem;
+  letter-spacing: .04em;
+  color: var(--ink-2);
+  text-align: center;
+}
+.ask--inline{ margin-top: .3rem }
+
+/* -------------------------------------------------- 第零定律的正式形式 */
+.core{
+  font-size: 1.02rem;
+  letter-spacing: .02em;
+  text-align: center;
+}
+.law{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  width: 100%;
+  padding: 1rem .8rem .8rem;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+}
+.law__caption{
+  font-family: var(--sans);
+  font-size: .72rem;
+  letter-spacing: .18em;
+  color: var(--ink-3);
+}
+
+/* ---------------------------------------------------------- 三个性质 */
+.props{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(.7rem, 3vw, 1.6rem);
+  width: 100%;
+  transition: opacity calc(var(--dur-2) * var(--step-scale)) var(--ease);
+}
+.props.is-done{ opacity: 0 }
+
+.prop{
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .3rem;
+  padding-top: .7rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+}
+.prop__formula{
+  font-size: 1rem;
+  white-space: nowrap;
+  transition: opacity .45s var(--ease);
+}
+.prop__text{
+  font-family: var(--sans);
+  font-size: .74rem;
+  line-height: 1.7;
+  color: var(--ink-3);
+  transition: opacity .45s var(--ease);
+}
+.prop__name{
+  font-size: .95rem;
+  letter-spacing: .1em;
+  color: var(--ink);
+  transition: transform calc(var(--dur-2) * var(--step-scale)) var(--ease),
+              opacity calc(var(--dur-2) * var(--step-scale)) var(--ease);
+}
+.prop__tick{
+  margin-left: .35rem;
+  font-size: .9em;
+  color: var(--accent);
+}
+
+/* 聚合：三个名称向中央靠拢，其余内容淡出 */
+.props.is-merging .prop__formula,
+.props.is-merging .prop__text{ opacity: 0 }
+.props.is-merging .prop--1 .prop__name{ transform: translateX(60%) }
+.props.is-merging .prop--3 .prop__name{ transform: translateX(-60%) }
+
+/* ------------------------------------------------------- 结论与收尾 */
+.equiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .65rem;
+  width: 100%;
+}
+.after{
+  max-width: 28rem;
+  font-family: var(--sans);
+  font-size: .84rem;
+  line-height: 1.85;
+  color: var(--ink-2);
+  text-align: center;
+}
+.end-ask{
+  font-size: clamp(1.02rem, 2.8vw, 1.14rem);
+  letter-spacing: .04em;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* ------------------------------------------- 阶段淡化（聚焦当前结论） */
+.lab,
+.log{
+  transition: opacity calc(var(--dur-2) * var(--step-scale)) var(--ease);
+}
+.scene--2[data-phase="props"] .lab,
+.scene--2[data-phase="props"] .log{ opacity: .42 }
+.scene--2[data-phase="equiv"] .lab,
+.scene--2[data-phase="equiv"] .log{ opacity: .3 }
+
+/* -------------------------------------------------------------- 窄屏 */
+@media (max-width: 420px){
+  .system{ padding: .55rem .7rem; font-size: .94rem }
+  .via-c{ gap: .35rem }
+  .log__row{ gap: .5rem }
+  .log__note{ font-size: .68rem }
+  .prop__text{ font-size: .68rem }
+}
+
+

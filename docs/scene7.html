@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>从热平衡到温度 · 第七幕：现在，我们真的可以测温了</title>
+<meta name="description" content="大学基础物理交互教材最后一幕：从三个系统开始，自己分类、自己赋标签、换成真实温标，最后把第一幕的闭环拆开，重排成整条逻辑链。">
+<meta name="color-scheme" content="light">
+
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/scene7.css">
+
+<!-- 只在启用 JavaScript 时隐藏待出现元素；未启用时全部内容一次显示 -->
+<script>document.documentElement.className = 'js';</script>
+</head>
+<body>
+<a class="skip-link" href="#scene7">跳到第七幕正文</a>
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <p class="masthead__eyebrow">从热平衡到温度</p>
+    <p class="masthead__meta">第七幕 / 共七幕</p>
+  </div>
+</header>
+
+<main class="stage">
+  <section class="scene scene--7" id="scene7" data-scene="7" aria-labelledby="scene7-title">
+    <h1 class="visually-hidden" id="scene7-title">第七幕：现在，我们真的可以测温了</h1>
+
+    <p class="scene__lead scene__lead--ask step" data-step="lead">哪些系统处于同一个热平衡类别？</p>
+
+    <div class="scene__canvas">
+
+      <!-- ======================= 三个系统：自己分类 ====================== -->
+      <div class="pairing step" data-step="sysRow" data-pairing>
+        <span class="pairing__group" aria-hidden="true"></span>
+        <div class="psys" data-psys="A" role="button" tabindex="0" aria-label="系统 A：点击选择">
+          <span class="m"><i>A</i></span>
+        </div>
+        <div class="psys" data-psys="B" role="button" tabindex="0" aria-label="系统 B：点击选择">
+          <span class="m"><i>B</i></span>
+        </div>
+        <div class="psys" data-psys="C" role="button" tabindex="0" aria-label="系统 C：点击选择">
+          <span class="m"><i>C</i></span>
+        </div>
+        <svg class="pairing__links" data-links aria-hidden="true" focusable="false">
+          <line data-link="AB"></line>
+          <line data-link="BC"></line>
+          <line data-link="AC"></line>
+        </svg>
+      </div>
+
+      <p class="pairing__hint step" data-step="hint">
+        点两个系统，表示它们处于热平衡。
+      </p>
+
+      <!-- ========================= 关系记录 =========================== -->
+      <div class="log">
+        <p class="log__row step" data-step="relAB">
+          <span class="m"><i>A</i> <span class="op">∼</span> <i>B</i></span>
+          <span class="log__note" data-rel-note="AB"></span>
+        </p>
+        <p class="log__row step" data-step="relBC">
+          <span class="m"><i>B</i> <span class="op">∼</span> <i>C</i></span>
+          <span class="log__note" data-rel-note="BC"></span>
+        </p>
+        <p class="log__row step" data-step="relAC">
+          <span class="m"><i>A</i> <span class="op">∼</span> <i>C</i></span>
+          <span class="log__note" data-rel-note="AC"></span>
+        </p>
+        <p class="log__row log__row--eq step" data-step="eqABC">
+          <span class="m">[<i>A</i>] <span class="op">=</span> {<i>A</i>, <i>B</i>, <i>C</i>}</span>
+        </p>
+      </div>
+
+      <p class="statement__line statement__line--key step" data-step="askThird">另外两个系统之间呢？</p>
+
+      <!-- ========================= 数字标签 =========================== -->
+      <div class="pick step" data-step="pick">
+        <p class="pick__q">给这个等价类选一个数字标签：</p>
+        <div class="pick__row">
+          <input type="number" min="1" max="1000" step="1" value="50" data-label
+                 aria-label="给这个等价类选一个 1 到 1000 的整数标签">
+          <button type="button" class="btn btn--primary" data-label-ok>就用它</button>
+        </div>
+        <p class="pick__hint">1–1000 的整数都可以（默认建议 50）。</p>
+      </div>
+
+      <p class="m-display--same step" data-step="thetaSame">
+        <span class="m"><i>θ</i>(<i>A</i>) <span class="op">=</span> <i>θ</i>(<i>B</i>) <span class="op">=</span>
+        <i>θ</i>(<i>C</i>) <span class="op">=</span> <span data-label-echo>50</span></span>
+      </p>
+
+      <!-- ========================= 换一种温标 ========================== -->
+      <div class="switch step" data-step="switchBox">
+        <button type="button" class="btn btn--ghost" data-switch>换一种温标</button>
+
+        <div class="switch__out step" data-step="switchOut">
+          <p class="switch__vals">
+            <span class="m"><i>t</i> <span class="op">=</span> 50 °C</span>
+            <span class="switch__arrow" aria-hidden="true">⟷</span>
+            <span class="m"><i>T</i> <span class="op">=</span> 323.15 K</span>
+          </p>
+          <p class="note" data-switch-note>
+            这是一个新的、经过物理定义和标定建立起来的具体温标；它与上面的经验标签 θ 不是同一层级的东西。
+          </p>
+        </div>
+      </div>
+
+      <!-- ===================== 回到第一幕：拆开闭环 ==================== -->
+      <div class="recall step" data-step="recall">
+        <p class="recall__title">第一幕的那个推理：</p>
+        <div class="loop" data-loop>
+          <div class="loop__nodes">
+            <p class="loop__node">温度相等</p>
+            <p class="loop__arrow" aria-hidden="true">↓</p>
+            <p class="loop__node">热平衡</p>
+            <p class="loop__arrow" aria-hidden="true">↓</p>
+            <p class="loop__node">温度相等</p>
+          </div>
+          <span class="loop__ring" aria-hidden="true"></span>
+        </div>
+        <p class="recall__say step" data-step="recallSay">
+          这一次我们知道：<strong>不能从这里开始。</strong>
+        </p>
+      </div>
+
+      <!-- ===================== 重新排列：正确的链 ===================== -->
+      <div class="chain step" data-step="fixChain" data-chain aria-label="重新排列后的逻辑链">
+        <p class="chain__line">热平衡现象</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">热平衡关系</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">第零定律</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">等价关系</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">等价类</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">数值标签</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line"><span class="m"><i>θ</i></span></p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">具体物理规律</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line chain__line--end">具体温标</p>
+      </div>
+
+      <p class="m-box-wrap step" data-step="finalBox">
+        <span class="m-box"><span class="m"><i>A</i> <span class="op">∼</span> <i>B</i></span> <span class="op">⟺</span> <span class="m"><i>θ</i>(<i>A</i>) <span class="op">=</span> <i>θ</i>(<i>B</i>)</span></span>
+      </p>
+
+      <p class="last step" data-step="close1">温度首先是对热平衡等价类的一种数值表示。</p>
+      <p class="last step" data-step="close2">第零定律让这种表示成为可能。</p>
+      <p class="last step" data-step="close3">而具体的温标，则需要更多物理学来确定。</p>
+
+      <!-- =========================== 结束页 =========================== -->
+      <p class="endpage__title step" data-step="mapTitle">概念地图</p>
+
+      <div class="chain chain--map step" data-step="map" data-chain aria-label="概念地图">
+        <p class="chain__line">热平衡</p>
+        <p class="chain__down" aria-hidden="true">▼</p>
+        <p class="chain__line">第零定律</p>
+        <p class="chain__down" aria-hidden="true">▼</p>
+        <p class="chain__line">等价关系</p>
+        <p class="chain__down" aria-hidden="true">▼</p>
+        <p class="chain__line">等价类</p>
+        <p class="chain__down" aria-hidden="true">▼</p>
+        <p class="chain__line">数值标签 <span class="m"><i>θ</i></span></p>
+        <p class="chain__down" aria-hidden="true">▼</p>
+        <p class="chain__line">经验温度</p>
+        <p class="chain__down" aria-hidden="true">▼</p>
+        <p class="chain__line">额外物理规律与规定</p>
+        <p class="chain__down" aria-hidden="true">▼</p>
+        <p class="chain__line chain__line--end">具体温标</p>
+      </div>
+
+      <!-- ====================== 结束页：署名与标志 ===================== -->
+      <div class="sign step" data-step="sign">
+        <span class="sign__rule" aria-hidden="true"></span>
+
+        <svg class="sign__logo" viewBox="0 0 132 52" role="img"
+             aria-label="余弦函数图像：画出了纵轴与横轴，曲线从纵轴上的最大值开始，画出一个完整周期">
+          <line class="sign__axis" x1="16" y1="46" x2="16" y2="6"></line>
+          <polygon class="sign__head" points="16,2.5 13.4,8.4 18.6,8.4"></polygon>
+          <line class="sign__axis" x1="16" y1="30" x2="128" y2="30"></line>
+          <polygon class="sign__head" points="131.5,30 125.6,27.4 125.6,32.6"></polygon>
+          <path class="sign__curve"
+                d="M 16 12 C 32 12 32 48 64 48 C 96 48 96 12 112 12"></path>
+        </svg>
+
+        <p class="sign__line">作者：Zhou Yixuan</p>
+        <p class="sign__line sign__line--soft">本作品由 Deepseek 协同生成。</p>
+        <p class="sign__line sign__line--soft">感谢您的观看。</p>
+      </div>
+    </div>
+
+    <!-- ============================ 底部工具条 ========================== -->
+    <footer class="scene__foot">
+
+      <div class="scene__utils">
+        <a class="scene__back" href="scene6.html">← 第六幕</a>
+        <a class="scene__back" href="index.html">回到第一幕</a>
+        <button type="button" class="btn-text" data-replay>重播本幕</button>
+        <span class="scene__utils-hint">按 R 重播</span>
+      </div>
+
+    </footer>
+  </section>
+</main>
+
+<noscript>
+  <p class="noscript">本页的推理由 JavaScript 逐步展开；未启用 JavaScript 时，全部文字会一次显示。</p>
+</noscript>
+
+<script src="js/scene7.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+/* ==========================================================================
+   Scene 6 · 从经验温度到物理温标
+   测量问题 / 测温装置 / 理想气体 / 热力学温标 / 摄氏与 Kelvin / 总结链
+   依赖 styles/base.css 的设计令牌与 .step 出现机制
+   ========================================================================== */
+
+/* 幕首提问：沿用前几幕的醒目样式 */
+.scene--6 .scene__lead--ask{
+  font-family: var(--serif);
+  font-size: clamp(1.02rem, 2.8vw, 1.16rem);
+  letter-spacing: .04em;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* 承接句 */
+.lead-in{
+  font-size: 1rem;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* ---------------------------------------------------------- 测温装置 */
+.thermo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .7rem;
+  width: 100%;
+}
+.thermo__device{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .25rem;
+  width: 7.5rem;
+  height: 5rem;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(28, 27, 25, .04), 0 12px 24px -20px rgba(28, 27, 25, .55);
+  cursor: pointer;
+  transition: border-color .3s var(--ease), transform .3s var(--ease);
+}
+.thermo__device:hover{ border-color: var(--accent-line) }
+.thermo__device:active{ transform: scale(.98) }
+.thermo__gas{
+  font-size: 1rem;
+  letter-spacing: .1em;
+  color: var(--ink);
+}
+.thermo__state{
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .12em;
+  color: var(--accent);
+}
+.thermo__reads{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .15rem;
+}
+.thermo__read{
+  font-size: .98rem;
+  color: var(--ink);
+}
+.thermo__read .m{ font-size: 1.02em }
+.thermo__hint{
+  font-family: var(--sans);
+  font-size: .72rem;
+  letter-spacing: .04em;
+  color: var(--ink-3);
+}
+
+/* ------------------------------------------------------ 理想气体温标 */
+.gas{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
+  width: 100%;
+  max-width: 28rem;
+}
+.gas__formula{
+  font-size: 1.16rem;
+  color: var(--ink);
+}
+.gas__line{
+  font-size: .96rem;
+  line-height: 1.8;
+  color: var(--ink-2);
+  text-align: center;
+}
+
+/* -------------------------------------------------------- 热力学温标 */
+.cycle{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  width: 100%;
+}
+.cycle__law{
+  font-size: 1.02rem;
+  letter-spacing: .04em;
+  color: var(--ink);
+}
+.cycle__flow{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .1rem;
+}
+.cycle__node{
+  padding: .35rem .9rem;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  font-size: .95rem;
+  letter-spacing: .06em;
+  color: var(--ink-2);
+}
+.cycle__node--mid{
+  border-color: var(--accent-line);
+  color: var(--ink);
+}
+.cycle__arrow{
+  font-size: .82rem;
+  color: var(--rule-strong);
+}
+.cycle__line{
+  max-width: 28rem;
+  font-size: .95rem;
+  line-height: 1.8;
+  color: var(--ink-2);
+  text-align: center;
+}
+
+/* ------------------------------------------------------ 摄氏与 Kelvin */
+.celsius{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .55rem;
+  width: 100%;
+  max-width: 28rem;
+}
+.celsius__line{
+  font-size: .98rem;
+  line-height: 1.8;
+  color: var(--ink);
+  text-align: center;
+}
+.celsius__read{
+  display: flex;
+  align-items: baseline;
+  gap: .7rem;
+  font-size: 1.06rem;
+  color: var(--ink);
+}
+.celsius__arrow{ color: var(--rule-strong) }
+.celsius__note{
+  max-width: 28rem;
+  font-family: var(--sans);
+  font-size: .8rem;
+  line-height: 1.85;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------- 窄屏 */
+@media (max-width: 420px){
+  .thermo__device{ width: 6.5rem; height: 4.4rem }
+  .gas__formula{ font-size: 1.08rem }
+  .celsius__read{ font-size: 1rem }
+  .cycle__line{ font-size: .9rem }
+}
+

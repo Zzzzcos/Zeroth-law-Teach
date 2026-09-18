@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>从热平衡到温度 · 第六幕：从经验温度到物理温标</title>
+<meta name="description" content="大学基础物理交互教材第六幕：物理学为什么需要具体温标——理想气体温标、热力学温标（Kelvin）与摄氏温标，以及它们各自需要哪些超出第零定律的物理结构。">
+<meta name="color-scheme" content="light">
+
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/scene6.css">
+
+<!-- 只在启用 JavaScript 时隐藏待出现元素；未启用时全部内容一次显示 -->
+<script>document.documentElement.className = 'js';</script>
+</head>
+<body>
+<a class="skip-link" href="#scene6">跳到第六幕正文</a>
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <p class="masthead__eyebrow">从热平衡到温度</p>
+    <p class="masthead__meta">第六幕 / 共七幕</p>
+  </div>
+</header>
+
+<main class="stage">
+  <section class="scene scene--6" id="scene6" data-scene="6" aria-labelledby="scene6-title">
+    <h1 class="visually-hidden" id="scene6-title">第六幕：从经验温度到物理温标</h1>
+
+    <p class="scene__lead scene__lead--ask step" data-step="lead">为什么不能永远停留在任意的 <span class="m"><i>θ</i></span>？</p>
+
+    <div class="scene__canvas">
+
+      <!-- ========================= 测量问题 ========================= -->
+      <div class="statement">
+        <p class="statement__line step" data-step="st1">如果我们只有“热平衡类别”，还不能直接做定量物理。</p>
+        <p class="statement__line step" data-step="st2">一个系统的状态改变了一点——改变了多少？</p>
+        <p class="statement__line step" data-step="st3">仅仅说“它属于另一个热平衡等价类”，还不够；我们需要数值。</p>
+      </div>
+
+      <p class="lead-in step" data-step="role">
+        于是，<span class="m"><i>θ</i></span>（经验温度）开始承担“测量”的角色。
+      </p>
+
+      <!-- ======================== 测温装置 =========================== -->
+      <div class="thermo step" data-step="thermo">
+        <div class="thermo__device" data-device role="button" tabindex="0"
+             aria-label="点击让这个气体系统的状态改变">
+          <span class="thermo__gas">气体</span>
+          <span class="thermo__state" data-device-state>冷</span>
+        </div>
+        <div class="thermo__reads">
+          <p class="thermo__read">
+            <span class="m"><i>P</i> <span class="op">=</span> <span data-p>1.10</span> <span class="op">×</span> 10<sup>5</sup> Pa</span>
+          </p>
+          <p class="thermo__read"><span class="m"><i>V</i> <span class="op">=</span> 2.0 <span class="op">×</span> 10<sup>−3</sup> m<sup>3</sup></span></p>
+          <p class="thermo__read"><span class="m"><i>n</i> <span class="op">=</span> 0.10 mol</span></p>
+        </div>
+        <p class="thermo__hint">点一下气体，让系统的状态改变。</p>
+      </div>
+
+      <p class="statement__line statement__line--key step" data-step="observable">
+        某些物理量可以随着冷热状态变化而变化。
+      </p>
+
+      <!-- ======================= 理想气体温标 ========================= -->
+      <div class="gas step" data-step="gas">
+        <p class="gas__formula m"><i>PV</i> <span class="op">=</span> <i>nRT</i></p>
+        <p class="gas__line">
+          如果选用理想气体作为测温体系，就可以通过理想气体的物理规律，
+          建立温度与 <span class="m"><i>P</i>, <i>V</i>, <i>n</i></span> 之间的定量关系。
+        </p>
+      </div>
+
+      <p class="m-box-wrap step" data-step="box1">
+        <span class="m-box box-text">额外物理规律 → 具体温度标度</span>
+      </p>
+
+      <!-- ======================== 热力学温标 ========================== -->
+      <p class="statement__line step" data-step="other">
+        还有另一种思路：不依赖某一种具体测温物质，而从热力学本身建立温标。
+      </p>
+
+      <div class="cycle step" data-step="cycle">
+        <p class="cycle__law">热力学第二定律</p>
+        <div class="cycle__flow">
+          <p class="cycle__node">高温热源</p>
+          <p class="cycle__arrow" aria-hidden="true">↓</p>
+          <p class="cycle__node cycle__node--mid">可逆热机</p>
+          <p class="cycle__arrow" aria-hidden="true">↓</p>
+          <p class="cycle__node">低温热源</p>
+        </div>
+        <p class="cycle__line">热力学温标需要额外的热力学结构，例如第二定律以及可逆热机关系。</p>
+      </div>
+
+      <p class="m-box-wrap step" data-step="boxT">
+        <span class="m-box"><span class="m"><i>T</i></span></span>
+      </p>
+
+      <p class="statement__line step" data-step="abs">
+        热力学温标最终给出了绝对温度的概念。在现代 SI 中，热力学温度的单位是 kelvin（K）。
+      </p>
+
+      <p class="note step" data-step="beyond">
+        Kelvin 温标需要超出第零定律的额外物理结构——它不是从第零定律推出来的。
+      </p>
+
+      <!-- ====================== 摄氏温标与 Kelvin ===================== -->
+      <div class="celsius step" data-step="celsius">
+        <p class="celsius__line">
+          <span class="m"><i>t</i> / °C</span> 与绝对温度的关系：
+          <span class="m"><i>t</i> <span class="op">=</span> <i>T</i> <span class="op">−</span> 273.15</span>
+        </p>
+
+        <label class="slider">
+          <span class="slider__label">拖动 <span class="m"><i>t</i></span>，两个数值一起变</span>
+          <input type="range" min="-20" max="80" step="1" value="50" data-t>
+        </label>
+
+        <p class="celsius__read">
+          <span class="m"><i>t</i> <span class="op">=</span> <span data-c-out>50</span> °C</span>
+          <span class="celsius__arrow" aria-hidden="true">⟷</span>
+          <span class="m"><i>T</i> <span class="op">=</span> <span data-k-out>323.15</span> K</span>
+        </p>
+
+        <p class="celsius__note">
+          摄氏温标与 Kelvin 温标的单位大小相同，但零点不同——这正是第四幕“重新标度”的一个例子。
+        </p>
+      </div>
+
+      <!-- ========================== 总结链 =========================== -->
+      <div class="chain step" data-step="chain" data-chain aria-label="整条逻辑链的总结">
+        <p class="chain__line">热平衡</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">第零定律</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">等价类</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">经验温度 <span class="m"><i>θ</i></span></p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">额外物理规律</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">具体温标</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line chain__line--end">Kelvin / 摄氏等</p>
+      </div>
+
+      <p class="last step" data-step="last1">第零定律负责建立热平衡分类结构。</p>
+      <p class="last step" data-step="last2">它本身并不决定具体温标。</p>
+    </div>
+
+    <!-- ============================ NextButton ========================== -->
+    <footer class="scene__foot">
+
+      <div class="cta-row step" data-step="cta">
+        <a class="btn btn--primary" href="scene7.html">
+          回到三个系统试试<span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="scene__utils">
+        <a class="scene__back" href="scene5.html">← 第五幕</a>
+        <button type="button" class="btn-text" data-replay>重播本幕</button>
+        <span class="scene__utils-hint">按 R 重播 · 按 Enter 继续</span>
+      </div>
+
+    </footer>
+  </section>
+</main>
+
+<noscript>
+  <p class="noscript">本页的推理由 JavaScript 逐步展开；未启用 JavaScript 时，全部文字会一次显示。</p>
+</noscript>
+
+<script src="js/scene6.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>从热平衡到温度 · 第四幕：同一个温度，可以有不同的数字吗</title>
+<meta name="description" content="大学基础物理交互教材第四幕：给等价类贴的数字标签并不唯一；研究什么样的重新标度是允许的——单射、双射与严格递增分别解决不同的问题。">
+<meta name="color-scheme" content="light">
+
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/scene4.css">
+
+<!-- 只在启用 JavaScript 时隐藏待出现元素；未启用时全部内容一次显示 -->
+<script>document.documentElement.className = 'js';</script>
+</head>
+<body>
+<a class="skip-link" href="#scene4">跳到第四幕正文</a>
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <p class="masthead__eyebrow">从热平衡到温度</p>
+    <p class="masthead__meta">第四幕 / 共七幕</p>
+  </div>
+</header>
+
+<main class="stage">
+  <section class="scene scene--4" id="scene4" data-scene="4" aria-labelledby="scene4-title">
+    <h1 class="visually-hidden" id="scene4-title">第四幕：同一个温度，可以有不同的数字吗</h1>
+
+    <p class="scene__lead scene__lead--ask step" data-step="lead">同一个温度，可以有不同的数字吗？</p>
+
+    <div class="scene__canvas">
+
+      <!-- ==================== 三个等价类与它们的标签 ==================== -->
+      <div class="labels" role="group" aria-label="三个热平衡等价类，以及它们目前的数字标签">
+        <div class="lchip" data-lchip="0">
+          <span class="lchip__name m">[<i>A</i>]</span>
+          <span class="lchip__arrow op">→</span>
+          <span class="lchip__num m" data-num="0">20</span>
+        </div>
+        <div class="lchip" data-lchip="1">
+          <span class="lchip__name m">[<i>C</i>]</span>
+          <span class="lchip__arrow op">→</span>
+          <span class="lchip__num m" data-num="1">50</span>
+        </div>
+        <div class="lchip" data-lchip="2">
+          <span class="lchip__name m">[<i>G</i>]</span>
+          <span class="lchip__arrow op">→</span>
+          <span class="lchip__num m" data-num="2">80</span>
+        </div>
+      </div>
+
+      <!-- ========================== 换一种标记 ========================== -->
+      <div class="relabel step" data-step="relabel">
+        <button type="button" class="btn btn--primary" data-relabel>换一种标记</button>
+        <p class="relabel__hint">点两次，看看把标签换成别的数字会怎样。</p>
+      </div>
+
+      <p class="note step" data-step="relabelNote">数字变了，但热平衡分类没有变。</p>
+
+      <!-- ========================= 重新标度 ============================ -->
+      <div class="map step" data-step="map">
+        <p class="map__title">
+          重新标度：<span class="m"><i>θ′</i> <span class="op">=</span> <i>f</i>(<i>θ</i>)</span>，
+          例如 <span class="m"><i>θ′</i> <span class="op">=</span> 2<i>θ</i></span>
+        </p>
+        <div class="map__rows">
+          <div class="map__row">
+            <span class="map__label m"><i>θ</i></span>
+            <span class="map__val m">20</span>
+            <span class="map__val m">50</span>
+            <span class="map__val m">80</span>
+          </div>
+          <div class="map__row" aria-hidden="true">
+            <span class="map__label"></span>
+            <span class="map__down">↓</span>
+            <span class="map__down">↓</span>
+            <span class="map__down">↓</span>
+          </div>
+          <div class="map__row">
+            <span class="map__label m"><i>θ′</i></span>
+            <span class="map__val map__val--out m" data-map-out="0"></span>
+            <span class="map__val map__val--out m" data-map-out="1"></span>
+            <span class="map__val map__val--out m" data-map-out="2"></span>
+          </div>
+        </div>
+      </div>
+
+      <p class="relabel__note step" data-step="keepClass">
+        <span class="m"><i>A</i> <span class="op">∼</span> <i>B</i></span> 仍然对应
+        <span class="m"><i>θ</i>(<i>A</i>) <span class="op">=</span> <i>θ</i>(<i>B</i>)</span>，
+        也对应 <span class="m"><i>θ′</i>(<i>A</i>) <span class="op">=</span> <i>θ′</i>(<i>B</i>)</span>。
+      </p>
+      <p class="relabel__note step" data-step="keepClass2">重新标度没有改变热平衡分类。</p>
+
+      <!-- ===================== 类别相撞（单射实验） ====================== -->
+      <div class="collide step" data-step="collide">
+        <p class="collide__q">
+          换一种重新标度：让 <span class="m"><i>f</i>(20) <span class="op">=</span> <i>f</i>(50) <span class="op">=</span> 10</span>
+        </p>
+
+        <div class="line" data-line>
+          <span class="line__rule" aria-hidden="true"></span>
+          <span class="marker" data-marker="0">
+            <span class="marker__name m">[<i>A</i>]</span>
+            <span class="marker__val m" data-marker-val="0">40</span>
+          </span>
+          <span class="marker" data-marker="1">
+            <span class="marker__name m">[<i>C</i>]</span>
+            <span class="marker__val m" data-marker-val="1">10</span>
+          </span>
+        </div>
+
+        <label class="slider">
+          <span class="slider__label">
+            把 <span class="m">[<i>A</i>]</span> 的新标签调到 <span class="m">10</span> 试试
+          </span>
+          <input type="range" min="10" max="60" step="10" value="40" data-range>
+        </label>
+
+        <p class="collide__ask step" data-step="collideAsk">发生了什么？</p>
+        <p class="collide__ans step" data-step="collideAns">两个原本不同的热平衡等价类，被压成了同一个数字。</p>
+        <p class="collide__ans collide__ans--key step" data-step="collideKey">分类信息丢失了。</p>
+
+        <p class="m-box-wrap step" data-step="injective">
+          <span class="m-box box-text"><span class="m"><i>f</i></span> 至少需要是单射</span>
+        </p>
+        <p class="collide__formula step" data-step="injective2">
+          <span class="m"><i>θ</i><sub>1</sub> <span class="op">≠</span> <i>θ</i><sub>2</sub>
+          <span class="op">⇒</span> <i>f</i>(<i>θ</i><sub>1</sub>) <span class="op">≠</span> <i>f</i>(<i>θ</i><sub>2</sub>)</span>
+        </p>
+      </div>
+
+      <!-- ===================== 双射：完整的一一对应 ====================== -->
+      <p class="ask2 step" data-step="askBij">如果我们不只是希望“不能合并”，而是希望建立一套完整的新温度标度呢？</p>
+
+      <div class="bij step" data-step="bij">
+        <p class="bij__formula m"><i>f</i> : <i>Θ</i> <span class="op">→</span> <i>Θ′</i></p>
+        <p class="bij__line">每一个旧温度对应一个新温度。</p>
+        <p class="bij__line">每一个新温度也都应该对应某一个旧温度。</p>
+      </div>
+
+      <p class="m-box-wrap step" data-step="bijection">
+        <span class="m-box box-text"><span class="m"><i>f</i></span> 是双射</span>
+      </p>
+
+      <div class="three step" data-step="three">
+        <p class="three__line"><span class="three__k">单射</span>不能把不同的旧温度合并</p>
+        <p class="three__line"><span class="three__k">满射</span>新的温度集合中不能出现无法对应旧温度的值</p>
+        <p class="three__line"><span class="three__k">两者合起来</span>双射</p>
+      </div>
+
+      <!-- ======================= 单调性：数字大小 ======================== -->
+      <p class="ask2 step" data-step="askMono">数字大小只是编号吗？</p>
+
+      <div class="mono step" data-step="mono">
+        <div class="seg" role="group" aria-label="选择一种重新标度">
+          <button type="button" class="seg__btn is-on" data-seg="inc">
+            <span class="m"><i>θ′</i> <span class="op">=</span> 2<i>θ</i> <span class="op">+</span> 5</span>
+          </button>
+          <button type="button" class="seg__btn" data-seg="dec">
+            <span class="m"><i>θ′</i> <span class="op">=</span> <span class="op">−</span><i>θ</i></span>
+          </button>
+        </div>
+
+        <p class="pair">
+          <span class="m">20 <span class="op">&lt;</span> 50</span>
+          <span class="pair__arrow" aria-hidden="true">→</span>
+          <span class="m pair__out" data-pair-out>45 <span class="op">&lt;</span> 105</span>
+        </p>
+
+        <p class="mono__verdict step" data-step="monoKeep">
+          大小规律保持：<span class="m">20 <span class="op">&lt;</span> 50</span> 对应
+          <span class="m">45 <span class="op">&lt;</span> 105</span>（<span class="m">80 <span class="op">→</span> 165</span>）。
+        </p>
+        <p class="mono__verdict mono__verdict--bad step" data-step="monoFlip">
+          数值顺序被反转了：<span class="m">20 <span class="op">&lt;</span> 50</span>，但
+          <span class="m"><span class="op">−</span>20 <span class="op">&gt;</span> <span class="op">−</span>50</span>。
+        </p>
+        <p class="mono__note step" data-step="monoNote">
+          它仍然是一一对应的重新标度；只是如果我们要求数值大小规律保持原来的冷热大小规律，这种变换就不符合要求。
+        </p>
+      </div>
+
+      <p class="m-box-wrap step" data-step="strict">
+        <span class="m-box box-text"><span class="m"><i>f</i></span> 严格递增</span>
+      </p>
+
+      <!-- ============================= 收束 ============================= -->
+      <div class="wrap step" data-step="wrap">
+        <p class="wrap__sym m"><i>θ</i></p>
+        <p class="wrap__text">我们已经有了一个可以表示热平衡类别的数值标签。</p>
+        <p class="wrap__sym m"><i>θ′</i> <span class="op">=</span> <i>f</i>(<i>θ</i>)</p>
+      </div>
+
+      <div class="gaps step" data-step="gaps">
+        <p class="gaps__title">但第零定律并没有告诉我们：</p>
+        <ul class="gaps__list">
+          <li>零点在哪里</li>
+          <li>单位是什么</li>
+          <li>一个单位应该有多大</li>
+          <li>各个刻度之间如何确定</li>
+          <li><span class="m"><i>θ</i></span> 与其他物理量具体满足什么关系</li>
+        </ul>
+      </div>
+
+      <p class="m-box-wrap step" data-step="frame1">
+        <span class="m-box box-text">第零定律 → 热平衡分类结构</span>
+      </p>
+      <p class="m-box-wrap step" data-step="frame2">
+        <span class="m-box box-text">具体温标 ← 额外物理规律 + 标度规定</span>
+      </p>
+      <p class="frame__ex step" data-step="frameEx">
+        例如：理想气体温标可以利用 <span class="m"><i>PV</i> <span class="op">=</span> <i>nRT</i></span>；
+        热力学温标需要第二定律以及可逆热机关系。
+      </p>
+
+      <!-- ========================== 最终总结链 ========================== -->
+      <div class="chain step" data-step="chain" data-chain aria-label="整条逻辑链的总结">
+        <p class="chain__line">热平衡</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">第零定律</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">等价关系</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">热平衡等价类</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">数值标签</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line"><span class="m"><i>θ</i></span></p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">重新标度 <span class="m"><i>θ′</i> <span class="op">=</span> <i>f</i>(<i>θ</i>)</span></p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line">具体物理规律 + 标度规定</p>
+        <p class="chain__down" aria-hidden="true">↓</p>
+        <p class="chain__line chain__line--end">具体温标</p>
+      </div>
+
+      <p class="last step" data-step="last">
+        第零定律给了我们“温度可以用来区分热平衡类别”的结构，但没有单独给出温度的具体尺子。
+      </p>
+    </div>
+
+    <!-- ============================ NextButton ========================== -->
+    <footer class="scene__foot">
+
+      <div class="cta-row step" data-step="cta">
+        <a class="btn btn--primary" href="scene5.html">
+          那把尺子还缺什么<span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="scene__utils">
+        <a class="scene__back" href="scene3.html">← 第三幕</a>
+        <button type="button" class="btn-text" data-replay>重播本幕</button>
+        <span class="scene__utils-hint">按 R 重播 · 按 Enter 继续</span>
+      </div>
+
+    </footer>
+  </section>
+</main>
+
+<noscript>
+  <p class="noscript">本页的推理由 JavaScript 逐步展开；未启用 JavaScript 时，全部文字会一次显示。</p>
+</noscript>
+
+<script src="js/scene4.js" defer></script>
+</body>
+</html>

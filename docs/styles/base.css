@@ -1,0 +1,469 @@
+/* ==========================================================================
+   从热平衡到温度 · 基础样式
+   设计令牌 / 版面骨架 / 通用控件 / reveal 出现机制
+   本文件被全部七幕共用；每一幕自己的样式写在 styles/sceneN.css
+   ========================================================================== */
+
+/* -------------------------------------------------------------- 设计令牌 */
+:root{
+  color-scheme: light;
+
+  /* 色彩：暖白底、深色文字、深蓝只作少量强调 */
+  --bg:          #fbfaf7;
+  --surface:     #ffffff;
+  --ink:         #1c1b19;
+  --ink-2:       #4b4843;
+  --ink-3:       #87837c;
+  --rule:        #e6e2d9;
+  --rule-strong: #cdc8ba;
+  --accent:      #1b3a6b;
+  --accent-ink:  #16305a;
+  --accent-soft: rgba(27, 58, 107, .10);
+
+  /* 字体：正文用衬线（教材感），界面文字用无衬线 */
+  --serif: "Source Han Serif SC", "Noto Serif SC", "Noto Serif CJK SC",
+           "Songti SC", "STSong", "SimSun", Georgia, "Times New Roman", serif;
+  --sans:  "Inter", "Helvetica Neue", Helvetica, Arial,
+           "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+
+  /* 版面 */
+  --measure: 34rem;                      /* 文本行长，约 544px */
+  --page-x:  clamp(1.15rem, 5vw, 3rem);  /* 左右留白 */
+  --block-y: clamp(1.6rem, 6vh, 4.5rem); /* 上下留白 */
+
+  /* 动效：全部动画时长都从这里取，保证七幕节奏一致 */
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --dur-1: .45s;   /* 小元素、箭头 */
+  --dur-2: .7s;    /* 节点、文字 */
+  --dur-3: .95s;   /* 回环箭头描边 */
+  --step-scale: 1; /* 减少动效时由脚本下调 */
+}
+
+/* ------------------------------------------------------------------ 重置 */
+*, *::before, *::after{ box-sizing: border-box }
+
+html{ -webkit-text-size-adjust: 100% }
+
+body{
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+p{ margin: 0 }
+
+::selection{ background: var(--accent-soft) }
+
+/* 键盘焦点：统一一个克制的深蓝描边 */
+:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px }
+
+/* ------------------------------------------------------------------ 页眉 */
+.masthead{ border-bottom: 1px solid var(--rule) }
+
+.masthead__inner{
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: .8rem var(--page-x);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--sans);
+  font-size: .72rem;
+  letter-spacing: .18em;
+  color: var(--ink-3);
+}
+
+.masthead__eyebrow{ color: var(--ink-2) }
+
+/* ------------------------------------------------------------------ 主体 */
+.stage{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.scene{
+  width: 100%;
+  max-width: var(--measure);
+  padding: var(--block-y) var(--page-x) calc(var(--block-y) * .7);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.1rem, 3.5vh, 2.2rem);
+}
+
+/* ==========================================================================
+   reveal 机制
+   只有启用 JavaScript 时才隐藏待出现元素（.js 由页内脚本写在 <html> 上）
+     .step          → 待出现
+     .step.is-in    → 已出现
+   --st 是局部时长，使不同元素可以用不同节奏但共用同一套规则
+   ========================================================================== */
+.js .step{
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  --st: calc(var(--dur-2) * var(--step-scale));
+  transition-property: opacity, transform, visibility, filter;
+  transition-duration: var(--st), var(--st), 0s, var(--st);
+  transition-delay: 0s, 0s, var(--st), 0s;
+  transition-timing-function: var(--ease);
+}
+
+.js .step.is-in{
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s, 0s, 0s, 0s;
+}
+
+/* 重播时的一帧：屏蔽全部过渡，让状态瞬时复位 */
+.is-resetting .step,
+.is-resetting .chain__loop path{ transition: none !important }
+
+/* 减少动效偏好：取消位移，时长由脚本把 --step-scale 调小 */
+@media (prefers-reduced-motion: reduce){
+  .js .step{ transform: none }
+}
+
+/* --------------------------------------------------------------- 通用控件 */
+.btn{
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: .92rem;
+  letter-spacing: .06em;
+  line-height: 1.5;
+  padding: .62rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: none;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dur-1) var(--ease),
+              border-color var(--dur-1) var(--ease),
+              color var(--dur-1) var(--ease);
+}
+
+.btn--primary{ background: var(--accent); border-color: var(--accent); color: #fff }
+.btn--primary:hover{ background: var(--accent-ink); border-color: var(--accent-ink) }
+
+.btn--ghost{ border-color: var(--rule-strong); color: var(--ink-2) }
+.btn--ghost:hover{ border-color: var(--ink-3); color: var(--ink) }
+
+.btn__arrow{
+  display: inline-block;
+  margin-left: .4em;
+  transition: transform var(--dur-1) var(--ease);
+}
+.btn:hover .btn__arrow{ transform: translateX(3px) }
+
+.btn-text{
+  font-family: var(--sans);
+  font-size: .76rem;
+  letter-spacing: .1em;
+  color: var(--ink-3);
+  background: none;
+  border: 0;
+  padding: .3rem .2rem;
+  cursor: pointer;
+  transition: color var(--dur-1) var(--ease);
+}
+.btn-text:hover{ color: var(--accent) }
+
+/* ------------------------------------------------------------------ 工具类 */
+.visually-hidden{
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link{
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10;
+  padding: .5rem .9rem;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  font-family: var(--sans);
+  font-size: .8rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.skip-link:focus{ left: .8rem; top: .5rem }
+
+.noscript{
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--page-x) 2rem;
+  font-family: var(--sans);
+  font-size: .82rem;
+  color: var(--ink-3);
+}
+
+/* ------------------------------------------------------------------ 窄屏 */
+@media (max-width: 420px){
+  body{ font-size: 16px }
+  .masthead__inner{ letter-spacing: .14em }
+}
+
+/* ==========================================================================
+   数学排版（轻量 · 零依赖）
+   本项目公式集合很小（∼ ⇒ ⟹ ⟺ θ Θ 与少量上下标），故刻意不引入 KaTeX / MathJax：
+   用字体 + 间距排版即可，并能保住"file:// 双击一定能跑、不依赖网络"这条底线。
+   用法：<span class="m"><i>A</i> <span class="op">∼</span> <i>B</i></span>
+   ========================================================================== */
+:root{
+  --math: "Cambria Math", "STIX Two Math", "Latin Modern Math", Georgia, "Times New Roman", serif;
+  --accent-line: rgba(27, 58, 107, .38);
+}
+
+.m{
+  font-family: var(--math);
+  font-size: 1.06em;
+  font-style: normal;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+.m i{ font-style: italic }
+.m .op{ margin: 0 .4em }
+.m .op--tight{ margin: 0 .18em }
+.m sub,
+.m sup{ font-size: .7em; font-style: normal }
+
+.m-display{
+  display: block;
+  margin: 0;
+  text-align: center;
+  font-family: var(--math);
+  font-size: 1.14rem;
+  color: var(--ink);
+}
+
+/* 方框结论（boxed） */
+.m-box-wrap{ text-align: center }
+.m-box{
+  display: inline-block;
+  padding: .55rem 1.3rem;
+  border: 1px solid var(--accent-line);
+  border-radius: 4px;
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(28, 27, 25, .04), 0 12px 24px -20px rgba(28, 27, 25, .55);
+  font-family: var(--math);
+  font-size: 1.06rem;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   各幕共用的版面片段
+   （原先写在 scene1.css 里，第二幕起需要复用，故上移到本文件；
+     渲染结果与第一幕完全一致，只是位置变了）
+   ========================================================================== */
+.scene__lead{
+  font-family: var(--sans);
+  font-size: .84rem;
+  letter-spacing: .08em;
+  color: var(--ink-3);
+}
+.scene__canvas{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(.9rem, 2.6vh, 1.6rem);
+}
+.scene__foot{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: clamp(.6rem, 2vh, 1.4rem);
+}
+.cta-row{ display: flex; justify-content: center }
+
+.scene__utils{
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  padding-top: .4rem;
+}
+
+/* 文字结论的方框（与 .m-box 同款，但用衬线正文字体） */
+.box-text{
+  font-family: var(--serif);
+  font-size: 1.02rem;
+}
+
+/* 关系记录（第二幕起共用）：.log 一行行记下已经得到的关系与类别 */
+.log{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .35rem;
+  width: 100%;
+}
+.log__row{
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: .8rem;
+  font-size: 1.02rem;
+}
+.log__note{
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .04em;
+  color: var(--ink-3);
+}
+
+/* 幕内关键强调句（第二幕起共用） */
+.note{
+  padding: .45rem .95rem;
+  border-left: 2px solid var(--accent-line);
+  background: var(--accent-soft);
+  font-size: .95rem;
+  letter-spacing: .02em;
+  color: var(--ink);
+}
+
+/* 滑块（第四幕起共用）：让学生拖动一个数值自己看变化 */
+.slider{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .3rem;
+  width: 100%;
+  max-width: 24rem;
+}
+.slider__label{
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .04em;
+  color: var(--ink-3);
+}
+.slider input[type="range"]{
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+/* 幕内陈述句（第五幕起共用） */
+.statement{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .35rem;
+  text-align: center;
+}
+.statement__line{
+  font-size: 1rem;
+  letter-spacing: .02em;
+  color: var(--ink-2);
+}
+.statement__line--key{ color: var(--ink) }
+
+/* 总结链（第四幕起共用）：逐行出现，延迟由脚本按序号写进 style */
+.chain{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .1rem;
+  text-align: center;
+}
+.chain__line{
+  font-size: 1rem;
+  letter-spacing: .02em;
+  color: var(--ink-2);
+}
+.chain__line--end{
+  padding: .35rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--accent-line);
+  border-radius: 4px;
+  color: var(--ink);
+}
+.chain__down{
+  font-size: .8rem;
+  color: var(--rule-strong);
+}
+.js .chain.step.is-in > *{
+  animation: chain-in .55s var(--ease) both;
+}
+@keyframes chain-in{
+  from{ opacity: 0; transform: translateY(6px) }
+  to{ opacity: 1; transform: none }
+}
+
+/* 幕末收尾句（第四幕起共用） */
+.last{
+  max-width: 30rem;
+  font-size: .98rem;
+  line-height: 1.85;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* 关系记录里的"推导行 / 等价类行"（第二幕起共用） */
+.log__row--derived,
+.log__row--eq{
+  padding: .15rem .7rem;
+  border-top: 1px dashed var(--rule-strong);
+  border-bottom: 1px dashed var(--rule-strong);
+}
+.log__row--derived .m{ color: var(--accent) }
+.scene__utils-hint{
+  font-family: var(--sans);
+  font-size: .72rem;
+  letter-spacing: .08em;
+  color: var(--ink-3);
+}
+.scene__back{
+  font-family: var(--sans);
+  font-size: .76rem;
+  letter-spacing: .1em;
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color var(--dur-1) var(--ease);
+}
+.scene__back:hover{ color: var(--accent) }
+
+/* 与下一幕的交接说明（每一幕末都用同一个样式） */
+.handoff{
+  max-width: 26rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+}
+.handoff__eyebrow{
+  margin-bottom: .5rem;
+  font-family: var(--sans);
+  font-size: .7rem;
+  letter-spacing: .2em;
+  color: var(--ink-3);
+}
+.handoff__title{
+  margin-bottom: .6rem;
+  font-size: 1.02rem;
+  letter-spacing: .06em;
+}
+.handoff__note{
+  margin-bottom: .8rem;
+  font-family: var(--sans);
+  font-size: .82rem;
+  line-height: 1.8;
+  color: var(--ink-2);
+}
+

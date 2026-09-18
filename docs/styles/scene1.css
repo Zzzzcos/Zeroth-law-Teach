@@ -1,0 +1,189 @@
+/* ==========================================================================
+   Scene 1 · 一个看似合理的证明 —— 逻辑链 / 箭头 / 结论句 / 疑问阶段
+   依赖 styles/base.css 的设计令牌与 .step 出现机制
+   ========================================================================== */
+
+/* ------------------------------------------------------------ 逻辑链画框
+   注意：.scene__lead / .scene__canvas / .scene__foot / .handoff / .scene__utils
+   等跨幕共用的片段已上移到 styles/base.css，本文件只保留第一幕专属样式。 */
+.scene__frame{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.5rem, 4.5vh, 2.4rem);
+}
+
+/* ------------------------------------------------------------ 逻辑链 */
+.chain{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 3.25rem;          /* 右侧留给回环箭头 */
+}
+.node{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .8rem 1.6rem;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  font-size: 1.08rem;
+  letter-spacing: .1em;
+  color: var(--ink);
+  box-shadow: 0 1px 2px rgba(28, 27, 25, .04), 0 12px 24px -20px rgba(28, 27, 25, .55);
+}
+.node__text{ white-space: nowrap }
+
+/* 引导性提问：只在疑问阶段、且只在悬停 / 聚焦时出现（只提问，不给答案） */
+.node::after{
+  content: attr(data-hint);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + .5rem);
+  width: max-content;
+  max-width: 15rem;
+  padding: .3rem .6rem;
+  transform: translate(-50%, 4px);
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: .72rem;
+  line-height: 1.5;
+  letter-spacing: .04em;
+  border-radius: 3px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s var(--ease), transform .2s var(--ease);
+  z-index: 3;
+}
+body.is-doubt .node{ cursor: help }
+body.is-doubt .node:hover::after,
+body.is-doubt .node:focus-visible::after{
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---------------------------------------------------------- 竖向箭头 */
+.link{
+  display: block;
+  width: 14px;
+  height: 2.5rem;
+  color: var(--rule-strong);
+}
+.js .link.step{ --st: calc(var(--dur-1) * var(--step-scale)) }  /* 箭头比节点略快 */
+.link line{
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-dasharray: 30;        /* 与 index.html 中竖线长度一致 */
+  stroke-dashoffset: 30;
+  transition: stroke-dashoffset var(--st) var(--ease);
+}
+.link polygon{
+  fill: currentColor;
+  opacity: 0;
+  transition: opacity var(--st) var(--ease) var(--st);
+}
+.link.is-in line{ stroke-dashoffset: 0 }
+.link.is-in polygon{ opacity: 1 }
+
+/* ---------------------------------------------------------- 回环箭头 */
+.chain__loop{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  color: var(--accent);
+}
+.chain__loop path{
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  /* --loop-len 由脚本按实际路径长度写入，配合 .is-drawn 完成“描边生长” */
+  stroke-dasharray: var(--loop-len, 0);
+  stroke-dashoffset: var(--loop-len, 0);
+  transition: stroke-dashoffset calc(var(--dur-3) * var(--step-scale)) var(--ease);
+}
+.chain__loop.is-drawn path{ stroke-dashoffset: 0 }
+.chain__loop polygon{
+  fill: currentColor;
+  opacity: 0;
+  transition: opacity .25s var(--ease);
+}
+.chain__loop.is-complete polygon{ opacity: 1 }
+
+/* ------------------------------------------------------------ 结论句 */
+.verdict{
+  position: relative;
+  padding-top: 1.3rem;
+  text-align: center;
+  font-size: 1.02rem;
+  color: var(--ink-2);
+}
+.verdict::before{
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2.75rem;
+  height: 1px;
+  margin-left: -1.375rem;
+  background: var(--rule);
+}
+
+/* ------------------------------------------------------------ 疑问阶段 */
+.doubt{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .85rem;
+  text-align: center;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height calc(var(--dur-2) * var(--step-scale)) var(--ease);
+}
+body.is-doubt .doubt{ max-height: 24rem }
+.doubt__line--1{
+  font-size: clamp(1.45rem, 4.4vw, 1.9rem);
+  line-height: 1.35;
+  letter-spacing: .06em;
+  color: var(--ink);
+}
+.doubt__line--2{
+  font-family: var(--sans);
+  font-size: .9rem;
+  letter-spacing: .1em;
+  color: var(--ink-3);
+}
+.doubt__line--3{
+  font-size: clamp(1.02rem, 2.7vw, 1.16rem);
+  line-height: 1.6;
+  letter-spacing: .04em;
+  color: var(--accent);
+}
+.doubt__tip{
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .06em;
+  color: var(--ink-3);
+}
+
+/* 变暗：只淡化逻辑链与结论句，疑问句保持清晰 */
+body.is-doubt .chain .node{ opacity: .32; filter: blur(1.4px) }
+body.is-doubt .chain .node:hover,
+body.is-doubt .chain .node:focus-visible{ opacity: 1; filter: none }
+body.is-doubt .chain .link,
+body.is-doubt .scene--1 .chain__loop{ opacity: .3 }
+body.is-doubt .scene--1 .verdict,
+body.is-doubt .scene--1 .scene__lead{ opacity: .4 }
+.masthead{ transition: opacity var(--dur-2) var(--ease) }
+body.is-doubt .masthead{ opacity: .55 }
+
+/* 页脚区（.scene__foot / .cta-row / .handoff / .scene__utils）已上移到 base.css，
+   这样七幕共用同一套按钮、交接说明与底部工具条样式。 */
